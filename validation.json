@@ -1,0 +1,22 @@
+{
+  "asset_checks": "passed",
+  "total_mass_kg": 40.0,
+  "total_center_of_mass_proxy_m": [
+    0.009257257632,
+    -0.011010391759999998,
+    0.39447380755999994
+  ],
+  "mesh_triangles": {
+    "body.stl": 423579,
+    "body_black.stl": 29538,
+    "body_blue.stl": 1012,
+    "body_glass.stl": 80,
+    "body_green.stl": 298,
+    "body_metal.stl": 391907,
+    "body_yellow.stl": 744,
+    "left_track.stl": 36800,
+    "right_track.stl": 36790
+  },
+  "gazebo_runtime_motion_and_camera": "not covered by asset validation; run check_motion.sh with start_sim.sh",
+  "runtime_check_command": "bash check_motion.sh (after bash start_sim.sh)"
+}

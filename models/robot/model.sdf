@@ -1,0 +1,2503 @@
+<?xml version='1.0' encoding='utf-8'?>
+<sdf version="1.9">
+  <model name="robot" canonical_link="base_link">
+    <static>false</static>
+    <self_collide>false</self_collide>
+    <link name="base_link">
+      <inertial>
+        <pose>0.01157157204 -0.0137629897 0.4524899501 0 0 0</pose>
+        <mass>32.0</mass>
+        <inertia>
+          <ixx>2.3669932406058223</ixx>
+          <iyy>1.8053199397601885</iyy>
+          <izz>1.2710839889783394</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="body_0">
+        <pose>0.0191027152 0.001957677001 0.4452203345 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.3647115354 0.5862098531 0.7375503192</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name="body_1">
+        <pose>-0.1942715573 0.002096811947 0.4789185564 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.2901676114 0.08215371065 0.4893006355</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name="body_2">
+        <pose>0.1072733392 0.006639673032 0.8678954535 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.1321550023 0.1620400002 0.1018000294</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name="body_3">
+        <pose>-0.02179151712 -0.3706776035 0.5064316927 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.1000000002 0.0792300001 0.1000000002</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name="body_4">
+        <pose>-0.02179151712 0.3746776035 0.5064316927 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.1000000002 0.0792300001 0.1000000002</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="cad_body_metal">
+        <geometry>
+          <mesh>
+            <uri>model://robot/meshes/body_metal.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.68 0.71 0.73 1</ambient>
+          <diffuse>0.68 0.71 0.73 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="cad_body_yellow">
+        <geometry>
+          <mesh>
+            <uri>model://robot/meshes/body_yellow.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.78 0.61 0.19 1</ambient>
+          <diffuse>0.78 0.61 0.19 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="cad_body_black">
+        <geometry>
+          <mesh>
+            <uri>model://robot/meshes/body_black.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.07 0.08 0.09 1</ambient>
+          <diffuse>0.07 0.08 0.09 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="cad_body_blue">
+        <geometry>
+          <mesh>
+            <uri>model://robot/meshes/body_blue.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.07 0.2 0.47 1</ambient>
+          <diffuse>0.07 0.2 0.47 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="cad_body_green">
+        <geometry>
+          <mesh>
+            <uri>model://robot/meshes/body_green.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.06 0.35 0.12 1</ambient>
+          <diffuse>0.06 0.35 0.12 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="cad_body_glass">
+        <geometry>
+          <mesh>
+            <uri>model://robot/meshes/body_glass.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.76 0.86 0.9 0.25</ambient>
+          <diffuse>0.76 0.86 0.9 0.25</diffuse>
+        </material>
+        <transparency>0.75</transparency>
+      </visual>
+      <sensor name="front_camera" type="camera">
+        <pose>0.1619180112 0.01926432241 0.8654388979 0 0 0</pose>
+        <always_on>true</always_on>
+        <update_rate>20</update_rate>
+        <topic>/robot/camera/image</topic>
+        <visualize>false</visualize>
+        <camera>
+          <horizontal_fov>1.0471975512</horizontal_fov>
+          <image>
+            <width>640</width>
+            <height>480</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.03</near>
+            <far>15.0</far>
+          </clip>
+          <camera_info_topic>/robot/camera/camera_info</camera_info_topic>
+        </camera>
+      </sensor>
+    </link>
+    <link name="left_track">
+      <pose>0 0.4050626034 0.1624092374 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>4.0</mass>
+        <inertia>
+          <ixx>0.03996901386973065</ixx>
+          <iyy>0.10947240348589687</iyy>
+          <izz>0.07910338961631379</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="bottom">
+        <pose>0 0 -0.0908348629 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.3289848855 0.12 0.1431487491</size>
+          </box>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>1.0</mu>
+              <mu2>0.7</mu2>
+              <fdir1>1 0 0</fdir1>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <collision name="front">
+        <pose>0.1644924427 0 -0.0908348629 1.570796327 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.07157437452847631</radius>
+            <length>0.12000000000092223</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>1.0</mu>
+              <mu2>0.7</mu2>
+              <fdir1>1 0 0</fdir1>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <collision name="rear">
+        <pose>-0.1644924427 0 -0.0908348629 1.570796327 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.07157437452847631</radius>
+            <length>0.12000000000092223</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>1.0</mu>
+              <mu2>0.7</mu2>
+              <fdir1>1 0 0</fdir1>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <collision name="upper">
+        <pose>0 0 0.06821187972 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.24550949 0.12 0.1818983459</size>
+          </box>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>1.0</mu>
+              <mu2>0.7</mu2>
+              <fdir1>1 0 0</fdir1>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="cad_left_track">
+        <pose>0 -0.4050626034 -0.1624092374 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://robot/meshes/left_track.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_0">
+        <pose>0.1740451979 0 -0.1657990884 0 2.837427622 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_1">
+        <pose>0.1462531551 0 -0.1663319551 0 -3.138417934 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_2">
+        <pose>0.1195945329 0 -0.1661769355 0 -3.131992524 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_3">
+        <pose>0.09296225601 0 -0.1659212543 0 -3.131992524 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_4">
+        <pose>0.06632997914 0 -0.1656655732 0 -3.131992524 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_5">
+        <pose>0.03969770227 0 -0.165409892 0 -3.131992524 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_6">
+        <pose>0.0130654254 0 -0.1651542108 0 -3.131992524 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_7">
+        <pose>-0.01356685147 0 -0.1648985297 0 -3.131992524 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_8">
+        <pose>-0.04019912834 0 -0.1646428485 0 -3.131992524 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_9">
+        <pose>-0.06683140521 0 -0.1643871673 0 -3.131992524 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_10">
+        <pose>-0.09346368208 0 -0.1641314861 0 -3.131992524 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_11">
+        <pose>-0.120095959 0 -0.163875805 0 -3.131992523 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_12">
+        <pose>-0.1467282358 0 -0.1636201238 0 -3.131992523 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_13">
+        <pose>-0.1736538609 0 -0.1603063984 0 -3.002335566 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_14">
+        <pose>-0.200342977 0 -0.1516317325 0 -2.436934655 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_15">
+        <pose>-0.2206332517 0 -0.1343792395 0 -2.436933619 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_16">
+        <pose>-0.2334114083 0 -0.1094223284 0 -1.835061614 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_17">
+        <pose>-0.2399384806 0 -0.08196560095 0 -1.410512313 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_18">
+        <pose>-0.2310583532 0 -0.05611675443 0 -1.233189471 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_19">
+        <pose>-0.2183502671 0 -0.03159165135 0 -0.8994692046 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_20">
+        <pose>-0.2017835439 0 -0.01073770144 0 -0.8994692046 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_21">
+        <pose>-0.1851970106 0 0.01010536654 0 -0.8985160789 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_22">
+        <pose>-0.1686104185 0 0.03094351681 0 -0.8985160789 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_23">
+        <pose>-0.1520238264 0 0.05178166708 0 -0.8985160789 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_24">
+        <pose>-0.135437234 0 0.0726198172 0 -0.8985160562 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_25">
+        <pose>-0.1188506414 0 0.0934579671 0 -0.8985160562 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_26">
+        <pose>-0.1022640409 0 0.1142961144 0 -0.8985153219 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_27">
+        <pose>-0.08321566195 0 0.1339362654 0 -0.7100279035 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_28">
+        <pose>-0.06081175467 0 0.1498683058 0 -0.4627774538 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_29">
+        <pose>-0.0359367406 0 0.160581847 0 -0.341629505 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_30">
+        <pose>-0.008882399776 0 0.1657978399 0 -0.08043648084 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_31">
+        <pose>0.01879828303 0 0.1656373506 0 0.2031709655 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_32">
+        <pose>0.04511232004 0 0.1591527253 0 0.3267747492 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_33">
+        <pose>0.06982546537 0 0.1474868838 0 0.5359882318 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_34">
+        <pose>0.09178766487 0 0.1316007613 0 0.6596658852 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_35">
+        <pose>0.1096154422 0 0.1106170407 0 0.889855407 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_36">
+        <pose>0.126197102 0 0.08963595793 0 0.917716252 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_37">
+        <pose>0.1423805654 0 0.06848320263 0 0.917716252 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_38">
+        <pose>0.1585640288 0 0.04733044732 0 0.917716252 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_39">
+        <pose>0.1747474924 0 0.02617769147 0 0.9177163889 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_40">
+        <pose>0.1909309529 0 0.005024933953 0 0.9177163889 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_41">
+        <pose>0.2071144134 0 -0.01612782357 0 0.9177163889 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_42">
+        <pose>0.2226415319 0 -0.03820891479 0 1.015333865 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_43">
+        <pose>0.2366863452 0 -0.06083824893 0 1.015333865 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_44">
+        <pose>0.2398541995 0 -0.08896058772 0 1.559831747 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_45">
+        <pose>0.2363025899 0 -0.1170326476 0 2.160966865 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_46">
+        <pose>0.2214809556 0 -0.1391609749 0 2.160967671 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_left_track_47">
+        <pose>0.1990721548 0 -0.1558511507 0 2.762839934 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+    </link>
+    <joint name="left_track_mount" type="fixed">
+      <parent>base_link</parent>
+      <child>left_track</child>
+    </joint>
+    <plugin name="gz::sim::systems::TrackController" filename="gz-sim-track-controller-system">
+      <link>left_track</link>
+      <track_orientation>0 0 0</track_orientation>
+      <min_velocity>-0.8</min_velocity>
+      <max_velocity>0.8</max_velocity>
+      <max_command_age>0.8</max_command_age>
+    </plugin>
+    <link name="right_track">
+      <pose>0 -0.4050626034 0.1624092374 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>4.0</mass>
+        <inertia>
+          <ixx>0.03996901386973065</ixx>
+          <iyy>0.10947240348589687</iyy>
+          <izz>0.07910338961631379</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="bottom">
+        <pose>0 0 -0.0908348629 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.3289848855 0.12 0.1431487491</size>
+          </box>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>1.0</mu>
+              <mu2>0.7</mu2>
+              <fdir1>1 0 0</fdir1>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <collision name="front">
+        <pose>0.1644924427 0 -0.0908348629 1.570796327 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.07157437452847631</radius>
+            <length>0.12000000000092223</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>1.0</mu>
+              <mu2>0.7</mu2>
+              <fdir1>1 0 0</fdir1>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <collision name="rear">
+        <pose>-0.1644924427 0 -0.0908348629 1.570796327 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.07157437452847631</radius>
+            <length>0.12000000000092223</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>1.0</mu>
+              <mu2>0.7</mu2>
+              <fdir1>1 0 0</fdir1>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <collision name="upper">
+        <pose>0 0 0.06821187972 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.24550949 0.12 0.1818983459</size>
+          </box>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>1.0</mu>
+              <mu2>0.7</mu2>
+              <fdir1>1 0 0</fdir1>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="cad_right_track">
+        <pose>0 0.4050626034 -0.1624092374 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://robot/meshes/right_track.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_0">
+        <pose>0.1740451979 0 -0.1657990884 0 2.837427622 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_1">
+        <pose>0.1462531551 0 -0.1663319551 0 -3.138417934 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_2">
+        <pose>0.1195945329 0 -0.1661769355 0 -3.131992524 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_3">
+        <pose>0.09296225601 0 -0.1659212543 0 -3.131992524 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_4">
+        <pose>0.06632997914 0 -0.1656655732 0 -3.131992524 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_5">
+        <pose>0.03969770227 0 -0.165409892 0 -3.131992524 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_6">
+        <pose>0.0130654254 0 -0.1651542108 0 -3.131992524 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_7">
+        <pose>-0.01356685147 0 -0.1648985297 0 -3.131992524 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_8">
+        <pose>-0.04019912834 0 -0.1646428485 0 -3.131992524 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_9">
+        <pose>-0.06683140521 0 -0.1643871673 0 -3.131992524 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_10">
+        <pose>-0.09346368208 0 -0.1641314861 0 -3.131992524 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_11">
+        <pose>-0.120095959 0 -0.163875805 0 -3.131992523 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_12">
+        <pose>-0.1467282358 0 -0.1636201238 0 -3.131992523 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_13">
+        <pose>-0.1736538609 0 -0.1603063984 0 -3.002335566 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_14">
+        <pose>-0.200342977 0 -0.1516317325 0 -2.436934655 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_15">
+        <pose>-0.2206332517 0 -0.1343792395 0 -2.436933619 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_16">
+        <pose>-0.2334114083 0 -0.1094223284 0 -1.835061614 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_17">
+        <pose>-0.2399384806 0 -0.08196560095 0 -1.410512313 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_18">
+        <pose>-0.2310583532 0 -0.05611675443 0 -1.233189471 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_19">
+        <pose>-0.2183502671 0 -0.03159165135 0 -0.8994692046 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_20">
+        <pose>-0.2017835439 0 -0.01073770144 0 -0.8994692046 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_21">
+        <pose>-0.1851970106 0 0.01010536654 0 -0.8985160789 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_22">
+        <pose>-0.1686104185 0 0.03094351681 0 -0.8985160789 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_23">
+        <pose>-0.1520238264 0 0.05178166708 0 -0.8985160789 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_24">
+        <pose>-0.135437234 0 0.0726198172 0 -0.8985160562 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_25">
+        <pose>-0.1188506414 0 0.0934579671 0 -0.8985160562 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_26">
+        <pose>-0.1022640409 0 0.1142961144 0 -0.8985153219 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_27">
+        <pose>-0.08321566195 0 0.1339362654 0 -0.7100279035 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_28">
+        <pose>-0.06081175467 0 0.1498683058 0 -0.4627774538 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_29">
+        <pose>-0.0359367406 0 0.160581847 0 -0.341629505 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_30">
+        <pose>-0.008882399776 0 0.1657978399 0 -0.08043648084 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_31">
+        <pose>0.01879828303 0 0.1656373506 0 0.2031709655 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_32">
+        <pose>0.04511232004 0 0.1591527253 0 0.3267747492 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_33">
+        <pose>0.06982546537 0 0.1474868838 0 0.5359882318 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_34">
+        <pose>0.09178766487 0 0.1316007613 0 0.6596658852 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_35">
+        <pose>0.1096154422 0 0.1106170407 0 0.889855407 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_36">
+        <pose>0.126197102 0 0.08963595793 0 0.917716252 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_37">
+        <pose>0.1423805654 0 0.06848320263 0 0.917716252 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_38">
+        <pose>0.1585640288 0 0.04733044732 0 0.917716252 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_39">
+        <pose>0.1747474924 0 0.02617769147 0 0.9177163889 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_40">
+        <pose>0.1909309529 0 0.005024933953 0 0.9177163889 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_41">
+        <pose>0.2071144134 0 -0.01612782357 0 0.9177163889 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_42">
+        <pose>0.2226415319 0 -0.03820891479 0 1.015333865 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_43">
+        <pose>0.2366863452 0 -0.06083824893 0 1.015333865 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_44">
+        <pose>0.2398541995 0 -0.08896058772 0 1.559831747 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_45">
+        <pose>0.2363025899 0 -0.1170326476 0 2.160966865 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_46">
+        <pose>0.2214809556 0 -0.1391609749 0 2.160967671 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="tread_right_track_47">
+        <pose>0.1990721548 0 -0.1558511507 0 2.762839934 0</pose>
+        <geometry>
+          <box>
+            <size>0.01997512813 0.18 0.012</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.035 0.04 0.045 1</ambient>
+          <diffuse>0.035 0.04 0.045 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+    </link>
+    <joint name="right_track_mount" type="fixed">
+      <parent>base_link</parent>
+      <child>right_track</child>
+    </joint>
+    <plugin name="gz::sim::systems::TrackController" filename="gz-sim-track-controller-system">
+      <link>right_track</link>
+      <track_orientation>0 0 0</track_orientation>
+      <min_velocity>-0.8</min_velocity>
+      <max_velocity>0.8</max_velocity>
+      <max_command_age>0.8</max_command_age>
+    </plugin>
+    <plugin name="gz::sim::systems::TrackedVehicle" filename="gz-sim-tracked-vehicle-system">
+      <left_track>
+        <link>left_track</link>
+      </left_track>
+      <right_track>
+        <link>right_track</link>
+      </right_track>
+      <tracks_separation>0.810125206877134</tracks_separation>
+      <steering_efficiency>0.8</steering_efficiency>
+      <topic>/model/robot/cmd_vel</topic>
+      <odom_topic>/model/robot/odometry</odom_topic>
+      <tf_topic>/model/robot/tf</tf_topic>
+      <frame_id>odom</frame_id>
+      <child_frame_id>base_link</child_frame_id>
+      <odom_publish_frequency>30</odom_publish_frequency>
+      <linear_velocity>
+        <min_velocity>-0.4</min_velocity>
+        <max_velocity>0.4</max_velocity>
+        <min_acceleration>-0.4</min_acceleration>
+        <max_acceleration>0.4</max_acceleration>
+      </linear_velocity>
+      <angular_velocity>
+        <min_velocity>-0.6</min_velocity>
+        <max_velocity>0.6</max_velocity>
+        <min_acceleration>-0.8</min_acceleration>
+        <max_acceleration>0.8</max_acceleration>
+      </angular_velocity>
+    </plugin>
+    <plugin name="robot_sim::TrackAnimation" filename="robot_track_animation.so">
+      <tread_count>48</tread_count>
+      <track_height>0.324818474857836</track_height>
+      <left_contour>
+        <point>
+          <x>0.1728472113609314</x>
+          <z>0.0004265384341124445</z>
+        </point>
+        <point>
+          <x>0.17202939093112946</x>
+          <z>0.00016981990484055132</z>
+        </point>
+        <point>
+          <x>0.17144861817359924</x>
+          <z>5.7591907534515485e-05</z>
+        </point>
+        <point>
+          <x>0.17059294879436493</x>
+          <z>3.0237025328005984e-08</z>
+        </point>
+        <point>
+          <x>0.14059309661388397</x>
+          <z>9.527167276246473e-05</z>
+        </point>
+        <point>
+          <x>0.13059315085411072</x>
+          <z>0.00012701880768872797</z>
+        </point>
+        <point>
+          <x>0.13053789734840393</x>
+          <z>0.0001274253154406324</z>
+        </point>
+        <point>
+          <x>-0.09953495860099792</x>
+          <z>0.002336222445592284</z>
+        </point>
+        <point>
+          <x>-0.14954935014247894</x>
+          <z>0.0028163818642497063</z>
+        </point>
+        <point>
+          <x>-0.15034128725528717</x>
+          <z>0.002874349243938923</z>
+        </point>
+        <point>
+          <x>-0.18995405733585358</x>
+          <z>0.008426645770668983</z>
+        </point>
+        <point>
+          <x>-0.19045376777648926</x>
+          <z>0.008521491661667824</z>
+        </point>
+        <point>
+          <x>-0.19129206240177155</x>
+          <z>0.008775045163929462</z>
+        </point>
+        <point>
+          <x>-0.19181635975837708</x>
+          <z>0.009006815031170845</z>
+        </point>
+        <point>
+          <x>-0.1925147920846939</x>
+          <z>0.009420464746654034</z>
+        </point>
+        <point>
+          <x>-0.1930232048034668</x>
+          <z>0.00980412494391203</z>
+        </point>
+        <point>
+          <x>-0.20064154267311096</x>
+          <z>0.016281863674521446</z>
+        </point>
+        <point>
+          <x>-0.2158781886100769</x>
+          <z>0.02923734113574028</z>
+        </point>
+        <point>
+          <x>-0.22349651157855988</x>
+          <z>0.03571508079767227</z>
+        </point>
+        <point>
+          <x>-0.2240341305732727</x>
+          <z>0.03623754903674126</z>
+        </point>
+        <point>
+          <x>-0.2244846075773239</x>
+          <z>0.03678794205188751</z>
+        </point>
+        <point>
+          <x>-0.2248726338148117</x>
+          <z>0.037402357906103134</z>
+        </point>
+        <point>
+          <x>-0.2251846343278885</x>
+          <z>0.038067515939474106</z>
+        </point>
+        <point>
+          <x>-0.22541052103042603</x>
+          <z>0.038732971996068954</z>
+        </point>
+        <point>
+          <x>-0.22750012576580048</x>
+          <z>0.046455249190330505</z>
+        </point>
+        <point>
+          <x>-0.23585852980613708</x>
+          <z>0.07734435796737671</z>
+        </point>
+        <point>
+          <x>-0.2360026240348816</x>
+          <z>0.07805704325437546</z>
+        </point>
+        <point>
+          <x>-0.23606528341770172</x>
+          <z>0.07877594232559204</z>
+        </point>
+        <point>
+          <x>-0.23603861033916473</x>
+          <z>0.07950303703546524</z>
+        </point>
+        <point>
+          <x>-0.23592343926429749</x>
+          <z>0.08021541684865952</z>
+        </point>
+        <point>
+          <x>-0.23572750389575958</x>
+          <z>0.08091562241315842</z>
+        </point>
+        <point>
+          <x>-0.2257906049489975</x>
+          <z>0.10922212153673172</z>
+        </point>
+        <point>
+          <x>-0.22247830033302307</x>
+          <z>0.11865762621164322</z>
+        </point>
+        <point>
+          <x>-0.2222616821527481</x>
+          <z>0.11918304860591888</z>
+        </point>
+        <point>
+          <x>-0.22186428308486938</x>
+          <z>0.1199144572019577</z>
+        </point>
+        <point>
+          <x>-0.2215050309896469</x>
+          <z>0.12041579931974411</z>
+        </point>
+        <point>
+          <x>-0.21652883291244507</x>
+          <z>0.12667977809906006</z>
+        </point>
+        <point>
+          <x>-0.1966240108013153</x>
+          <z>0.15173567831516266</z>
+        </point>
+        <point>
+          <x>-0.14178535342216492</x>
+          <z>0.22063085436820984</z>
+        </point>
+        <point>
+          <x>-0.11561854183673859</x>
+          <z>0.2535048723220825</z>
+        </point>
+        <point>
+          <x>-0.10316310822963715</x>
+          <z>0.2691529393196106</z>
+        </point>
+        <point>
+          <x>-0.09693538397550583</x>
+          <z>0.27697697281837463</z>
+        </point>
+        <point>
+          <x>-0.09627033025026321</x>
+          <z>0.277689665555954</z>
+        </point>
+        <point>
+          <x>-0.08392839878797531</x>
+          <z>0.2902904450893402</z>
+        </point>
+        <point>
+          <x>-0.08097845315933228</x>
+          <z>0.2929939031600952</z>
+        </point>
+        <point>
+          <x>-0.07794405519962311</x>
+          <z>0.2956022024154663</z>
+        </point>
+        <point>
+          <x>-0.07482828199863434</x>
+          <z>0.2981127202510834</z>
+        </point>
+        <point>
+          <x>-0.06625711172819138</x>
+          <z>0.30498242378234863</z>
+        </point>
+        <point>
+          <x>-0.065492182970047</x>
+          <z>0.3054722249507904</z>
+        </point>
+        <point>
+          <x>-0.04955584555864334</x>
+          <z>0.3134230673313141</z>
+        </point>
+        <point>
+          <x>-0.04588792845606804</x>
+          <z>0.31502217054367065</z>
+        </point>
+        <point>
+          <x>-0.04217103496193886</x>
+          <z>0.3165038824081421</z>
+        </point>
+        <point>
+          <x>-0.03840891271829605</x>
+          <z>0.317866712808609</z>
+        </point>
+        <point>
+          <x>-0.027710894122719765</x>
+          <z>0.32167062163352966</z>
+        </point>
+        <point>
+          <x>-0.02747967466711998</x>
+          <z>0.3217409551143646</z>
+        </point>
+        <point>
+          <x>-0.0266866497695446</x>
+          <z>0.321903795003891</z>
+        </point>
+        <point>
+          <x>-0.00953454989939928</x>
+          <z>0.3241415321826935</z>
+        </point>
+        <point>
+          <x>-0.005546138621866703</x>
+          <z>0.32446303963661194</z>
+        </point>
+        <point>
+          <x>-0.001549523207359016</x>
+          <z>0.3246575891971588</z>
+        </point>
+        <point>
+          <x>0.0024512570817023516</x>
+          <z>0.3247250020503998</z>
+        </point>
+        <point>
+          <x>0.014035205356776714</x>
+          <z>0.3248184621334076</z>
+        </point>
+        <point>
+          <x>0.014575492590665817</x>
+          <z>0.3247939944267273</z>
+        </point>
+        <point>
+          <x>0.015095165930688381</x>
+          <z>0.324725478887558</z>
+        </point>
+        <point>
+          <x>0.03179856762290001</x>
+          <z>0.32128435373306274</z>
+        </point>
+        <point>
+          <x>0.03567526489496231</x>
+          <z>0.3202934265136719</z>
+        </point>
+        <point>
+          <x>0.039518505334854126</x>
+          <z>0.3191797137260437</z>
+        </point>
+        <point>
+          <x>0.04332439973950386</x>
+          <z>0.3179444372653961</z>
+        </point>
+        <point>
+          <x>0.05424008518457413</x>
+          <z>0.3142448365688324</z>
+        </point>
+        <point>
+          <x>0.055021241307258606</x>
+          <z>0.31397581100463867</z>
+        </point>
+        <point>
+          <x>0.05558172985911369</x>
+          <z>0.31370431184768677</z>
+        </point>
+        <point>
+          <x>0.06996441632509232</x>
+          <z>0.30516114830970764</z>
+        </point>
+        <point>
+          <x>0.07330930233001709</x>
+          <z>0.3029651343822479</z>
+        </point>
+        <point>
+          <x>0.07658269256353378</x>
+          <z>0.30066388845443726</z>
+        </point>
+        <point>
+          <x>0.07978127151727676</x>
+          <z>0.29825976490974426</z>
+        </point>
+        <point>
+          <x>0.08940304070711136</x>
+          <z>0.2907974123954773</z>
+        </point>
+        <point>
+          <x>0.09026587009429932</x>
+          <z>0.2900121808052063</z>
+        </point>
+        <point>
+          <x>0.0904507264494896</x>
+          <z>0.28980013728141785</z>
+        </point>
+        <point>
+          <x>0.10082713514566422</x>
+          <z>0.2775191068649292</z>
+        </point>
+        <point>
+          <x>0.1158880665898323</x>
+          <z>0.25893038511276245</z>
+        </point>
+        <point>
+          <x>0.11603303998708725</x>
+          <z>0.2587473392486572</z>
+        </point>
+        <point>
+          <x>0.1707405298948288</x>
+          <z>0.18724137544631958</z>
+        </point>
+        <point>
+          <x>0.2072087973356247</x>
+          <z>0.13957515358924866</z>
+        </point>
+        <point>
+          <x>0.2132851481437683</x>
+          <z>0.1316329836845398</z>
+        </point>
+        <point>
+          <x>0.21362793445587158</x>
+          <z>0.1311379373073578</z>
+        </point>
+        <point>
+          <x>0.21890130639076233</x>
+          <z>0.12264136970043182</z>
+        </point>
+        <point>
+          <x>0.23472139239311218</x>
+          <z>0.09715167433023453</z>
+        </point>
+        <point>
+          <x>0.2349117547273636</x>
+          <z>0.09681569784879684</z>
+        </point>
+        <point>
+          <x>0.23521675169467926</x>
+          <z>0.09615907073020935</z>
+        </point>
+        <point>
+          <x>0.23543882369995117</x>
+          <z>0.09546870738267899</z>
+        </point>
+        <point>
+          <x>0.23552089929580688</x>
+          <z>0.09509224444627762</z>
+        </point>
+        <point>
+          <x>0.23562823235988617</x>
+          <z>0.09403472393751144</z>
+        </point>
+        <point>
+          <x>0.2360668182373047</x>
+          <z>0.054036080837249756</z>
+        </point>
+        <point>
+          <x>0.23595109581947327</x>
+          <z>0.052863337099552155</z>
+        </point>
+        <point>
+          <x>0.23587509989738464</x>
+          <z>0.05254277586936951</z>
+        </point>
+        <point>
+          <x>0.23560836911201477</x>
+          <z>0.051735833287239075</z>
+        </point>
+        <point>
+          <x>0.23536552488803864</x>
+          <z>0.0511942058801651</z>
+        </point>
+        <point>
+          <x>0.23505188524723053</x>
+          <z>0.05069706216454506</z>
+        </point>
+        <point>
+          <x>0.23059986531734467</x>
+          <z>0.044050298631191254</z>
+        </point>
+        <point>
+          <x>0.21279175579547882</x>
+          <z>0.01746324636042118</z>
+        </point>
+        <point>
+          <x>0.2122584581375122</x>
+          <z>0.016783541068434715</z>
+        </point>
+        <point>
+          <x>0.21184781193733215</x>
+          <z>0.016367265954613686</z>
+        </point>
+        <point>
+          <x>0.21122592687606812</x>
+          <z>0.015870414674282074</z>
+        </point>
+        <point>
+          <x>0.21066902577877045</x>
+          <z>0.015529032796621323</z>
+        </point>
+        <point>
+          <x>0.2100122720003128</x>
+          <z>0.015217014588415623</z>
+        </point>
+        <point>
+          <x>0.20072101056575775</x>
+          <z>0.011519395746290684</z>
+        </point>
+      </left_contour>
+      <right_contour>
+        <point>
+          <x>0.1728472113609314</x>
+          <z>0.0004265384341124445</z>
+        </point>
+        <point>
+          <x>0.17202939093112946</x>
+          <z>0.00016981990484055132</z>
+        </point>
+        <point>
+          <x>0.17144861817359924</x>
+          <z>5.759190389653668e-05</z>
+        </point>
+        <point>
+          <x>0.17059294879436493</x>
+          <z>3.023651373723624e-08</z>
+        </point>
+        <point>
+          <x>0.14059309661388397</x>
+          <z>9.527166548650712e-05</z>
+        </point>
+        <point>
+          <x>0.13059315085411072</x>
+          <z>0.00012701880768872797</z>
+        </point>
+        <point>
+          <x>0.13053789734840393</x>
+          <z>0.0001274253154406324</z>
+        </point>
+        <point>
+          <x>-0.09953495860099792</x>
+          <z>0.002336222445592284</z>
+        </point>
+        <point>
+          <x>-0.14954935014247894</x>
+          <z>0.0028163818642497063</z>
+        </point>
+        <point>
+          <x>-0.15034128725528717</x>
+          <z>0.002874349243938923</z>
+        </point>
+        <point>
+          <x>-0.18995405733585358</x>
+          <z>0.008426645770668983</z>
+        </point>
+        <point>
+          <x>-0.19045376777648926</x>
+          <z>0.008521491661667824</z>
+        </point>
+        <point>
+          <x>-0.19129206240177155</x>
+          <z>0.008775045163929462</z>
+        </point>
+        <point>
+          <x>-0.19181635975837708</x>
+          <z>0.009006815031170845</z>
+        </point>
+        <point>
+          <x>-0.1925147920846939</x>
+          <z>0.009420464746654034</z>
+        </point>
+        <point>
+          <x>-0.1930232048034668</x>
+          <z>0.00980412494391203</z>
+        </point>
+        <point>
+          <x>-0.20064154267311096</x>
+          <z>0.016281863674521446</z>
+        </point>
+        <point>
+          <x>-0.2158781886100769</x>
+          <z>0.02923734113574028</z>
+        </point>
+        <point>
+          <x>-0.22349651157855988</x>
+          <z>0.03571508079767227</z>
+        </point>
+        <point>
+          <x>-0.2240341305732727</x>
+          <z>0.03623754903674126</z>
+        </point>
+        <point>
+          <x>-0.2244846075773239</x>
+          <z>0.03678794205188751</z>
+        </point>
+        <point>
+          <x>-0.2248726338148117</x>
+          <z>0.037402357906103134</z>
+        </point>
+        <point>
+          <x>-0.2251846343278885</x>
+          <z>0.038067515939474106</z>
+        </point>
+        <point>
+          <x>-0.22541052103042603</x>
+          <z>0.038732971996068954</z>
+        </point>
+        <point>
+          <x>-0.22750012576580048</x>
+          <z>0.046455249190330505</z>
+        </point>
+        <point>
+          <x>-0.23585852980613708</x>
+          <z>0.07734435796737671</z>
+        </point>
+        <point>
+          <x>-0.2360026240348816</x>
+          <z>0.07805704325437546</z>
+        </point>
+        <point>
+          <x>-0.23606528341770172</x>
+          <z>0.07877594232559204</z>
+        </point>
+        <point>
+          <x>-0.23603861033916473</x>
+          <z>0.07950303703546524</z>
+        </point>
+        <point>
+          <x>-0.23592343926429749</x>
+          <z>0.08021541684865952</z>
+        </point>
+        <point>
+          <x>-0.23572750389575958</x>
+          <z>0.08091562241315842</z>
+        </point>
+        <point>
+          <x>-0.2257906049489975</x>
+          <z>0.10922212153673172</z>
+        </point>
+        <point>
+          <x>-0.22247830033302307</x>
+          <z>0.11865762621164322</z>
+        </point>
+        <point>
+          <x>-0.2222616821527481</x>
+          <z>0.11918304860591888</z>
+        </point>
+        <point>
+          <x>-0.22186428308486938</x>
+          <z>0.1199144572019577</z>
+        </point>
+        <point>
+          <x>-0.2215050309896469</x>
+          <z>0.12041579931974411</z>
+        </point>
+        <point>
+          <x>-0.21652883291244507</x>
+          <z>0.12667977809906006</z>
+        </point>
+        <point>
+          <x>-0.1966240108013153</x>
+          <z>0.15173567831516266</z>
+        </point>
+        <point>
+          <x>-0.14178535342216492</x>
+          <z>0.22063085436820984</z>
+        </point>
+        <point>
+          <x>-0.11561854183673859</x>
+          <z>0.2535048723220825</z>
+        </point>
+        <point>
+          <x>-0.10316310822963715</x>
+          <z>0.2691529393196106</z>
+        </point>
+        <point>
+          <x>-0.09693538397550583</x>
+          <z>0.27697697281837463</z>
+        </point>
+        <point>
+          <x>-0.09627033025026321</x>
+          <z>0.277689665555954</z>
+        </point>
+        <point>
+          <x>-0.08392839878797531</x>
+          <z>0.2902904450893402</z>
+        </point>
+        <point>
+          <x>-0.08097845315933228</x>
+          <z>0.2929939031600952</z>
+        </point>
+        <point>
+          <x>-0.07794405519962311</x>
+          <z>0.2956022024154663</z>
+        </point>
+        <point>
+          <x>-0.07482828199863434</x>
+          <z>0.2981127202510834</z>
+        </point>
+        <point>
+          <x>-0.06625711172819138</x>
+          <z>0.30498242378234863</z>
+        </point>
+        <point>
+          <x>-0.065492182970047</x>
+          <z>0.3054722249507904</z>
+        </point>
+        <point>
+          <x>-0.04955584555864334</x>
+          <z>0.3134230673313141</z>
+        </point>
+        <point>
+          <x>-0.04588792845606804</x>
+          <z>0.31502217054367065</z>
+        </point>
+        <point>
+          <x>-0.04217103496193886</x>
+          <z>0.3165038824081421</z>
+        </point>
+        <point>
+          <x>-0.03840891271829605</x>
+          <z>0.317866712808609</z>
+        </point>
+        <point>
+          <x>-0.027710894122719765</x>
+          <z>0.32167062163352966</z>
+        </point>
+        <point>
+          <x>-0.02747967466711998</x>
+          <z>0.3217409551143646</z>
+        </point>
+        <point>
+          <x>-0.0266866497695446</x>
+          <z>0.321903795003891</z>
+        </point>
+        <point>
+          <x>-0.00953454989939928</x>
+          <z>0.3241415321826935</z>
+        </point>
+        <point>
+          <x>-0.005546138621866703</x>
+          <z>0.32446303963661194</z>
+        </point>
+        <point>
+          <x>-0.001549523207359016</x>
+          <z>0.3246575891971588</z>
+        </point>
+        <point>
+          <x>0.0024512570817023516</x>
+          <z>0.3247250020503998</z>
+        </point>
+        <point>
+          <x>0.014035205356776714</x>
+          <z>0.3248184621334076</z>
+        </point>
+        <point>
+          <x>0.014575492590665817</x>
+          <z>0.3247939944267273</z>
+        </point>
+        <point>
+          <x>0.015095165930688381</x>
+          <z>0.324725478887558</z>
+        </point>
+        <point>
+          <x>0.03179856762290001</x>
+          <z>0.32128435373306274</z>
+        </point>
+        <point>
+          <x>0.03567526489496231</x>
+          <z>0.3202934265136719</z>
+        </point>
+        <point>
+          <x>0.039518505334854126</x>
+          <z>0.3191797137260437</z>
+        </point>
+        <point>
+          <x>0.04332439973950386</x>
+          <z>0.3179444372653961</z>
+        </point>
+        <point>
+          <x>0.05424008518457413</x>
+          <z>0.3142448365688324</z>
+        </point>
+        <point>
+          <x>0.055021241307258606</x>
+          <z>0.31397581100463867</z>
+        </point>
+        <point>
+          <x>0.05558172985911369</x>
+          <z>0.31370431184768677</z>
+        </point>
+        <point>
+          <x>0.06996441632509232</x>
+          <z>0.30516114830970764</z>
+        </point>
+        <point>
+          <x>0.07330930233001709</x>
+          <z>0.3029651343822479</z>
+        </point>
+        <point>
+          <x>0.07658269256353378</x>
+          <z>0.30066388845443726</z>
+        </point>
+        <point>
+          <x>0.07978127151727676</x>
+          <z>0.29825976490974426</z>
+        </point>
+        <point>
+          <x>0.08940304070711136</x>
+          <z>0.2907974123954773</z>
+        </point>
+        <point>
+          <x>0.09026587009429932</x>
+          <z>0.2900121808052063</z>
+        </point>
+        <point>
+          <x>0.0904507264494896</x>
+          <z>0.28980013728141785</z>
+        </point>
+        <point>
+          <x>0.10082713514566422</x>
+          <z>0.2775191068649292</z>
+        </point>
+        <point>
+          <x>0.1158880665898323</x>
+          <z>0.25893038511276245</z>
+        </point>
+        <point>
+          <x>0.11603303998708725</x>
+          <z>0.2587473392486572</z>
+        </point>
+        <point>
+          <x>0.1707405298948288</x>
+          <z>0.18724137544631958</z>
+        </point>
+        <point>
+          <x>0.2072087973356247</x>
+          <z>0.13957515358924866</z>
+        </point>
+        <point>
+          <x>0.2132851481437683</x>
+          <z>0.1316329836845398</z>
+        </point>
+        <point>
+          <x>0.21362793445587158</x>
+          <z>0.1311379373073578</z>
+        </point>
+        <point>
+          <x>0.21890130639076233</x>
+          <z>0.12264136970043182</z>
+        </point>
+        <point>
+          <x>0.23472139239311218</x>
+          <z>0.09715167433023453</z>
+        </point>
+        <point>
+          <x>0.2349117547273636</x>
+          <z>0.09681569784879684</z>
+        </point>
+        <point>
+          <x>0.23521675169467926</x>
+          <z>0.09615907073020935</z>
+        </point>
+        <point>
+          <x>0.23543882369995117</x>
+          <z>0.09546870738267899</z>
+        </point>
+        <point>
+          <x>0.23552089929580688</x>
+          <z>0.09509224444627762</z>
+        </point>
+        <point>
+          <x>0.23562823235988617</x>
+          <z>0.09403472393751144</z>
+        </point>
+        <point>
+          <x>0.2360668182373047</x>
+          <z>0.054036080837249756</z>
+        </point>
+        <point>
+          <x>0.23595109581947327</x>
+          <z>0.052863337099552155</z>
+        </point>
+        <point>
+          <x>0.23587509989738464</x>
+          <z>0.05254277586936951</z>
+        </point>
+        <point>
+          <x>0.23560836911201477</x>
+          <z>0.051735833287239075</z>
+        </point>
+        <point>
+          <x>0.23536552488803864</x>
+          <z>0.0511942058801651</z>
+        </point>
+        <point>
+          <x>0.23505188524723053</x>
+          <z>0.05069706216454506</z>
+        </point>
+        <point>
+          <x>0.23059986531734467</x>
+          <z>0.044050298631191254</z>
+        </point>
+        <point>
+          <x>0.21279175579547882</x>
+          <z>0.01746324636042118</z>
+        </point>
+        <point>
+          <x>0.2122584581375122</x>
+          <z>0.016783541068434715</z>
+        </point>
+        <point>
+          <x>0.21184781193733215</x>
+          <z>0.016367265954613686</z>
+        </point>
+        <point>
+          <x>0.21122592687606812</x>
+          <z>0.015870414674282074</z>
+        </point>
+        <point>
+          <x>0.21066902577877045</x>
+          <z>0.015529032796621323</z>
+        </point>
+        <point>
+          <x>0.2100122720003128</x>
+          <z>0.015217014588415623</z>
+        </point>
+        <point>
+          <x>0.20072101056575775</x>
+          <z>0.011519395746290684</z>
+        </point>
+      </right_contour>
+    </plugin>
+    <plugin name="gz::sim::systems::OdometryPublisher" filename="gz-sim-odometry-publisher-system">
+      <dimensions>3</dimensions>
+      <odom_frame>world</odom_frame>
+      <robot_base_frame>base_link</robot_base_frame>
+      <odom_topic>/model/robot/ground_truth/odometry</odom_topic>
+      <tf_topic>/model/robot/ground_truth/tf</tf_topic>
+      <odom_publish_frequency>30</odom_publish_frequency>
+    </plugin>
+  </model>
+</sdf>

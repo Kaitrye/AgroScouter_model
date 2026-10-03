@@ -1,0 +1,123 @@
+{
+  "visual_mode": "cad",
+  "visual_palette": {
+    "metal": [0.68, 0.71, 0.73, 1.0],
+    "yellow": [0.78, 0.61, 0.19, 1.0],
+    "black": [0.07, 0.08, 0.09, 1.0],
+    "blue": [0.07, 0.20, 0.47, 1.0],
+    "green": [0.06, 0.35, 0.12, 1.0],
+    "glass": [0.76, 0.86, 0.90, 0.25],
+    "rubber": [0.035, 0.04, 0.045, 1.0]
+  },
+  "body_mass_kg": 32.0,
+  "track_mass_kg_each": 4.0,
+  "body_com_m": [
+    0.011571572038769318,
+    -0.013762989697179023,
+    0.4524899501308161
+  ],
+  "body_inertia_box_size_m": [
+    0.3647115353603205,
+    0.586209853074814,
+    0.7375503192224842
+  ],
+  "body_collision_boxes": [
+    {
+      "size_m": [
+        0.3647115353603205,
+        0.586209853074814,
+        0.7375503192224842
+      ],
+      "center_m": [
+        0.01910271520056861,
+        0.0019576770009817894,
+        0.44522033446384013
+      ]
+    },
+    {
+      "size_m": [
+        0.29016761135750574,
+        0.08215371064563101,
+        0.4893006354773672
+      ],
+      "center_m": [
+        -0.1942715573262015,
+        0.0020968119471504,
+        0.4789185563986927
+      ]
+    },
+    {
+      "size_m": [
+        0.13215500228967414,
+        0.1620400002,
+        0.10180002936694314
+      ],
+      "center_m": [
+        0.10727333924688665,
+        0.006639673032377573,
+        0.8678954534671903
+      ]
+    },
+    {
+      "size_m": [
+        0.10000000020000002,
+        0.0792300001000001,
+        0.10000000020000005
+      ],
+      "center_m": [
+        -0.021791517119274375,
+        -0.37067760348839524,
+        0.5064316926794351
+      ]
+    },
+    {
+      "size_m": [
+        0.10000000020000005,
+        0.07923000010000021,
+        0.10000000020000005
+      ],
+      "center_m": [
+        -0.021791517119274545,
+        0.37467760348838886,
+        0.5064316926794351
+      ]
+    }
+  ],
+  "track_friction": [
+    1.0,
+    0.7
+  ],
+  "steering_efficiency": 0.8,
+  "max_linear_speed_m_s": 0.4,
+  "max_angular_speed_rad_s": 0.6,
+  "max_track_speed_m_s": 0.8,
+  "max_linear_acceleration_m_s2": 0.4,
+  "max_angular_acceleration_rad_s2": 0.8,
+  "command_timeout_s": 0.5,
+  "camera": {
+    "pose_m_rad": [
+      0.16191801123878397,
+      0.019264322411320905,
+      0.8654388978819907,
+      0,
+      0,
+      0
+    ],
+    "horizontal_fov_rad": 1.0471975512,
+    "width_px": 640,
+    "height_px": 480,
+    "fps": 20,
+    "near_m": 0.03,
+    "far_m": 15.0
+  },
+  "assumptions": {
+    "mass": "40 kg total is a provisional modelling choice, not a measurement.",
+    "body_com": "Uniform CAD-volume centroid, not a measured centre of mass.",
+    "inertia": "Homogeneous box proxy around the provisional centre of mass.",
+    "track_friction": "Provisional coefficients; calibrate on real floor.",
+    "drive": "Velocity-controlled non-deformable tracks; no motor torque or grouser simulation.",
+    "camera": "Position estimated from upper-camera circular front face; direction chosen as CAD +Z. Intrinsics/FOV uncalibrated.",
+    "manipulator": "Frozen in STEP pose; included in body mass and simplified collision envelope.",
+    "detail": "CAD visuals omit very small internal electronic components; original STEP remains authoritative."
+  }
+}
