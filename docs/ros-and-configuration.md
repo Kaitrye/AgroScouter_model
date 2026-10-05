@@ -12,7 +12,9 @@ python3 tools/generate_model.py
 
 Затем перезапустите симуляцию. Это обновит SDF и сцену; STEP и сетки
 обрабатывать повторно не нужно. Генератор использует только стандартную
-библиотеку Python.
+библиотеку Python. Если менялась форма `camera_mount.blend`, выполните вместо
+этого `bash tools/sync_camera_mount.sh`: эта команда экспортирует новые сетки
+и обновит положение камеры в параметрах.
 
 Если CAD-отображение слишком тяжёлое для ноутбука, установите
 `"visual_mode": "simplified"` и запустите генератор. Физика и размеры
@@ -27,7 +29,7 @@ python3 tools/generate_model.py
 | `/robot/cmd_vel` | `geometry_msgs/msg/Twist` | команды после повтора и таймаута |
 | `/odom` | `nav_msgs/msg/Odometry` | кинематическая одометрия привода |
 | `/ground_truth/odom` | `nav_msgs/msg/Odometry` | поза и скорость из физической симуляции |
-| `/camera/image_raw` | `sensor_msgs/msg/Image` | изображение верхней камеры |
+| `/camera/image_raw` | `sensor_msgs/msg/Image` | изображение камеры, направленной вниз |
 | `/camera/camera_info` | `sensor_msgs/msg/CameraInfo` | параметры виртуальной камеры |
 | `/clock` | `rosgraph_msgs/msg/Clock` | симуляционное время |
 | `/tf` | `tf2_msgs/msg/TFMessage` | odom → base_link |

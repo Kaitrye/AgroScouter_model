@@ -9,6 +9,10 @@ import struct
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'models/robot/meshes/body.stl'
 TRIANGLE = struct.Struct('<12fH')
+SIDE_CAMERA_PARTS = {21, 22, 23, 24, 27}
+REMOVED_EQUIPMENT_PARTS = SIDE_CAMERA_PARTS
+
+
 PHOTO_PARTS = {
     'glass': {17, 18, 19, 20},
     'blue': {16},
@@ -27,6 +31,39 @@ def ros_bounds(part):
 def contained(inner, outer, tolerance=.001):
     return all(inner[i] >= outer[i] - tolerance for i in range(3)) and all(
         inner[i] <= outer[i] + tolerance for i in range(3, 6))
+
+
+def obsolete_top_part(box):
+    """The photographed robot has open top rails, without the CAD lid and mast."""
+    x0, y0, z0, x1, y1, z1 = box
+    lid = (x1 - x0 > .3 and y1 - y0 > .5 and
+           .813 <= z0 <= .815 and .816 <= z1 <= .818)
+    mast = z0 >= .816 and z1 > .82 and -.08 < y0 < .09 and y1 < .1
+    return lid or mast
+
+
+def unwanted_detail(box, reference):
+    """Hide external cameras, exposed brackets, and the hanging CAD arm."""
+    if any(contained(box, reference[index]) for index in REMOVED_EQUIPMENT_PARTS):
+        return True
+    if any(contained(box, reference[index]) for index in range(28, 637)):
+        return True
+    x0, y0, z0, x1, y1, z1 = box
+    # Small brackets, pins and connectors above the inner equipment box.
+    platform_equipment = any(contained(box, reference[index])
+                             for index in (14, 15, 16))
+    internal_fitting = (x0 > -.15 and x1 < .16 and y0 > -.23 and y1 < .23
+                        and .45 < z0 < .8 and not platform_equipment)
+    if internal_fitting:
+        return True
+    center_y = (y0 + y1) / 2
+    if abs(center_y) > .30 and z0 > .35:
+        motor_cylinder = (.09 < x1 - x0 < .11 and
+                          .07 < y1 - y0 < .09 and
+                          .09 < z1 - z0 < .11 and
+                          .45 < z0 < .47)
+        return not motor_cylinder
+    return False
 
 
 def partition():
@@ -68,7 +105,9 @@ def partition():
                 box[axis + 3] = max(box[axis + 3], value)
 
     parts = json.loads((ROOT / 'config/cad_parts.json').read_text())
-    reference = {part['index']: ros_bounds(part) for part in parts if part['index'] < 28}
+    reference = {part['index']: ros_bounds(part) for part in parts}
+    remove = {root: obsolete_top_part(box) or unwanted_detail(box, reference)
+              for root, box in bounds.items()}
     material = {}
     for root, box in bounds.items():
         category = 'metal'
@@ -84,8 +123,12 @@ def partition():
 
     groups = {category: bytearray() for category in
               ('metal', 'yellow', 'black', 'blue', 'green', 'glass')}
+    removed = 0
     for index in range(count):
         root = find(index)
+        if remove[root]:
+            removed += 1
+            continue
         category = material[root]
         if category == 'metal':
             box = bounds[root]
@@ -98,13 +141,17 @@ def partition():
         groups[category].extend(triangles[index * 50:(index + 1) * 50])
 
     for category, data in groups.items():
-        if not data:
-            raise ValueError(f'No CAD faces matched material {category}')
         output = SOURCE.with_name(f'body_{category}.stl')
+        if not data:
+            if category not in ('blue', 'green'):
+                raise ValueError(f'No CAD faces matched material {category}')
+            output.unlink(missing_ok=True)
+            continue
         header = f'robot_sim photo palette: {category}'.encode().ljust(80, b' ')
         output.write_bytes(header + struct.pack('<I', len(data) // 50) + data)
         print(f'{output.name}: {len(data) // 50} triangles')
-    assert sum(len(data) // 50 for data in groups.values()) == count
+    assert sum(len(data) // 50 for data in groups.values()) + removed == count
+    print(f'obsolete top and unwanted details: {removed} triangles removed')
 
 
 if __name__ == '__main__':

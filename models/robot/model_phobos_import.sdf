@@ -43,7 +43,7 @@
       <visual name="cad_body_metal">
         <geometry>
           <mesh>
-            <uri>model://robot/meshes/body_metal.stl</uri>
+            <uri>meshes/body_metal.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -55,7 +55,7 @@
       <visual name="cad_body_yellow">
         <geometry>
           <mesh>
-            <uri>model://robot/meshes/body_yellow.stl</uri>
+            <uri>meshes/body_yellow.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -67,7 +67,7 @@
       <visual name="cad_body_black">
         <geometry>
           <mesh>
-            <uri>model://robot/meshes/body_black.stl</uri>
+            <uri>meshes/body_black.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -79,7 +79,7 @@
       <visual name="cad_body_blue">
         <geometry>
           <mesh>
-            <uri>model://robot/meshes/body_blue.stl</uri>
+            <uri>meshes/body_blue.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -91,7 +91,7 @@
       <visual name="cad_body_glass">
         <geometry>
           <mesh>
-            <uri>model://robot/meshes/body_glass.stl</uri>
+            <uri>meshes/body_glass.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -112,7 +112,7 @@
         <pose>0.245 0 0.607 0 0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://robot/meshes/camera_mount_yellow.stl</uri>
+            <uri>meshes/camera_mount_yellow.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -125,7 +125,7 @@
         <pose>0.245 0 0.607 0 0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://robot/meshes/camera_mount_green.stl</uri>
+            <uri>meshes/camera_mount_green.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -138,7 +138,7 @@
         <pose>0.245 0 0.607 0 0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://robot/meshes/camera_mount_black.stl</uri>
+            <uri>meshes/camera_mount_black.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -151,7 +151,7 @@
         <pose>0.245 0 0.607 0 0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://robot/meshes/camera_mount_imu.stl</uri>
+            <uri>meshes/camera_mount_imu.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -169,7 +169,7 @@
         </geometry>
       </collision>
       <sensor name="down_camera" type="camera">
-        <pose>0.2759639672 0.1606882811 0.5922218414 0 1.570796327 0</pose>
+        <pose relative_to="base_link">0.2759639672 0.1606882811 0.5922218414 0 1.570796327 0</pose>
         <always_on>true</always_on>
         <update_rate>20</update_rate>
         <topic>/robot/camera/image</topic>
@@ -277,7 +277,7 @@
         <pose>0 -0.4050626034 -0.1624092374 0 0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://robot/meshes/left_track.stl</uri>
+            <uri>meshes/left_track.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -1010,7 +1010,7 @@
         <pose>0 0.4050626034 -0.1624092374 0 0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://robot/meshes/right_track.stl</uri>
+            <uri>meshes/right_track.stl</uri>
           </mesh>
         </geometry>
         <material>

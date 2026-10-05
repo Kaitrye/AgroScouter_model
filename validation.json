@@ -8,12 +8,15 @@
   ],
   "mesh_triangles": {
     "body.stl": 423579,
-    "body_black.stl": 29538,
+    "body_black.stl": 17126,
     "body_blue.stl": 1012,
     "body_glass.stl": 80,
-    "body_green.stl": 298,
-    "body_metal.stl": 391907,
+    "body_metal.stl": 144854,
     "body_yellow.stl": 744,
+    "camera_mount_black.stl": 528,
+    "camera_mount_green.stl": 168,
+    "camera_mount_imu.stl": 108,
+    "camera_mount_yellow.stl": 12,
     "left_track.stl": 36800,
     "right_track.stl": 36790
   },

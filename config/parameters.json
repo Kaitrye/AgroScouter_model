@@ -1,13 +1,54 @@
 {
   "visual_mode": "cad",
   "visual_palette": {
-    "metal": [0.68, 0.71, 0.73, 1.0],
-    "yellow": [0.78, 0.61, 0.19, 1.0],
-    "black": [0.07, 0.08, 0.09, 1.0],
-    "blue": [0.07, 0.20, 0.47, 1.0],
-    "green": [0.06, 0.35, 0.12, 1.0],
-    "glass": [0.76, 0.86, 0.90, 0.25],
-    "rubber": [0.035, 0.04, 0.045, 1.0]
+    "metal": [
+      0.68,
+      0.71,
+      0.73,
+      1.0
+    ],
+    "yellow": [
+      0.78,
+      0.61,
+      0.19,
+      1.0
+    ],
+    "black": [
+      0.07,
+      0.08,
+      0.09,
+      1.0
+    ],
+    "blue": [
+      0.07,
+      0.2,
+      0.47,
+      1.0
+    ],
+    "green": [
+      0.06,
+      0.35,
+      0.12,
+      1.0
+    ],
+    "glass": [
+      0.76,
+      0.86,
+      0.9,
+      0.25
+    ],
+    "rubber": [
+      0.035,
+      0.04,
+      0.045,
+      1.0
+    ],
+    "imu": [
+      0.16,
+      0.19,
+      0.22,
+      1.0
+    ]
   },
   "body_mass_kg": 32.0,
   "track_mass_kg_each": 4.0,
@@ -32,30 +73,6 @@
         0.01910271520056861,
         0.0019576770009817894,
         0.44522033446384013
-      ]
-    },
-    {
-      "size_m": [
-        0.29016761135750574,
-        0.08215371064563101,
-        0.4893006354773672
-      ],
-      "center_m": [
-        -0.1942715573262015,
-        0.0020968119471504,
-        0.4789185563986927
-      ]
-    },
-    {
-      "size_m": [
-        0.13215500228967414,
-        0.1620400002,
-        0.10180002936694314
-      ],
-      "center_m": [
-        0.10727333924688665,
-        0.006639673032377573,
-        0.8678954534671903
       ]
     },
     {
@@ -96,11 +113,11 @@
   "command_timeout_s": 0.5,
   "camera": {
     "pose_m_rad": [
-      0.16191801123878397,
-      0.019264322411320905,
-      0.8654388978819907,
+      0.27596396720036864,
+      0.16068828105926514,
+      0.5922218413800001,
       0,
-      0,
+      1.5707963267948966,
       0
     ],
     "horizontal_fov_rad": 1.0471975512,
@@ -116,8 +133,32 @@
     "inertia": "Homogeneous box proxy around the provisional centre of mass.",
     "track_friction": "Provisional coefficients; calibrate on real floor.",
     "drive": "Velocity-controlled non-deformable tracks; no motor torque or grouser simulation.",
-    "camera": "Position estimated from upper-camera circular front face; direction chosen as CAD +Z. Intrinsics/FOV uncalibrated.",
-    "manipulator": "Frozen in STEP pose; included in body mass and simplified collision envelope.",
+    "camera": "Approximate pose of the smaller downward-facing camera on a compact green fork extending left from the front yellow plate, based on photos. Intrinsics/FOV uncalibrated.",
+    "manipulator": "The side equipment, manipulator and small internal fittings are omitted from the visual mesh; mass and inertia remain provisional.",
     "detail": "CAD visuals omit very small internal electronic components; original STEP remains authoritative."
+  },
+  "imu": {
+    "pose_m": [
+      0.3150000050663948,
+      0.0,
+      0.6179999937303364
+    ],
+    "size_m": [
+      0.06000000238418579,
+      0.04800000041723251,
+      0.016000001691281796
+    ]
+  },
+  "camera_mount_plate_collision": {
+    "pose_m": [
+      0.2500000074505806,
+      0.0,
+      0.606999933719635
+    ],
+    "size_m": [
+      0.1899999976158142,
+      0.2800000011920929,
+      0.005999999586492777
+    ]
   }
 }

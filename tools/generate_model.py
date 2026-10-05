@@ -124,7 +124,7 @@ def generate():
     p=json.loads((ROOT/'config/parameters.json').read_text())
     g=json.loads((ROOT/'config/geometry.json').read_text())
     palette=p['visual_palette']
-    for name in ('metal','yellow','black','blue','green','glass','rubber'):
+    for name in ('metal','yellow','black','blue','green','glass','rubber','imu'):
         rgba=palette[name]
         if len(rgba)!=4 or any(not math.isfinite(v) or v<0 or v>1 for v in rgba):
             raise ValueError(f'Invalid visual color: {name}')
@@ -162,11 +162,33 @@ def generate():
         for color in ('metal','yellow','black','blue','green','glass'):
             mesh_file=ROOT/f'models/robot/meshes/body_{color}.stl'
             if not mesh_file.exists():
+                if color in ('blue', 'green'):
+                    continue  # These CAD equipment meshes may be absent after cleanup.
                 raise FileNotFoundError(f'{mesh_file}; run python3 tools/colorize_mesh.py')
             visual=sub(body,'visual',name='cad_body_'+color)
             mesh=sub(sub(visual,'geometry'),'mesh')
             sub(mesh,'uri',f'model://robot/meshes/body_{color}.stl')
             material(visual,palette[color])
+    # The editable camera assembly is exported from camera_mount.blend. Its
+    # mesh coordinates are local to the centre of the yellow plate.
+    plate=p['camera_mount_plate_collision']
+    primitive(body,'collision','lower_camera_plate',plate['pose_m'],size=plate['size_m'])
+    for color in ('yellow','green','black'):
+        mesh_file=ROOT/f'models/robot/meshes/camera_mount_{color}.stl'
+        if not mesh_file.is_file():
+            raise FileNotFoundError(f'{mesh_file}; export camera_mount.blend first')
+        visual=sub(body,'visual',name=f'camera_mount_{color}')
+        sub(visual,'pose',[.245,0,.607,0,0,0])
+        mesh=sub(sub(visual,'geometry'),'mesh')
+        sub(mesh,'uri',f'model://robot/meshes/camera_mount_{color}.stl')
+        material(visual,palette[color])
+    imu=p['imu']
+    imu_visual=sub(body,'visual',name='imu_sensor_visual')
+    sub(imu_visual,'pose',[.245,0,.607,0,0,0])
+    imu_mesh=sub(sub(imu_visual,'geometry'),'mesh')
+    sub(imu_mesh,'uri','model://robot/meshes/camera_mount_imu.stl')
+    material(imu_visual,palette['imu'])
+    primitive(body,'collision','imu_sensor_collision',imu['pose_m'],size=imu['size_m'])
     track_size=g['track_envelope_size_m']
     axis_distance=g['track_contact_axis_distance_m']
     radius=(track_size[0]-axis_distance)/2
@@ -229,7 +251,7 @@ def generate():
     sub(ground_truth,'dimensions',3);sub(ground_truth,'odom_frame','world');sub(ground_truth,'robot_base_frame','base_link')
     sub(ground_truth,'odom_topic','/model/robot/ground_truth/odometry')
     sub(ground_truth,'tf_topic','/model/robot/ground_truth/tf');sub(ground_truth,'odom_publish_frequency',30)
-    sensor=sub(body,'sensor',name='front_camera',type='camera')
+    sensor=sub(body,'sensor',name='down_camera',type='camera')
     sub(sensor,'pose',camera['pose_m_rad']);sub(sensor,'always_on','true');sub(sensor,'update_rate',camera['fps'])
     sub(sensor,'topic','/robot/camera/image');sub(sensor,'visualize','false')
     c=sub(sensor,'camera');sub(c,'horizontal_fov',camera['horizontal_fov_rad'])
