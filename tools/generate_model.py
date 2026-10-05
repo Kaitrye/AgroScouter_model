@@ -120,14 +120,73 @@ def tread_pose(distance, contour, center_z, outward_offset=.004):
     raise AssertionError('Contour has no usable segments')
 
 
+
+def write_corner_cap_mesh(config, path):
+    """Write four rounded protective pads as one binary STL in base_link coordinates."""
+    sx, sy, sz = config['size_m']
+    radius = config['corner_radius_m']
+    bevel = config['edge_bevel_m']
+    if (len(config['x_centers_m']) != 2 or min(sx, sy, sz) <= 0
+            or not 0 < bevel < radius < min(sx, sy) / 2
+            or sz <= 2 * bevel or config['y_abs_m'] <= 0):
+        raise ValueError('Invalid upper corner cap dimensions')
+
+    def outline(cx, cy, half_x, half_y, r, z):
+        points = []
+        for ox, oy, start in ((half_x-r, half_y-r, 0),
+                              (-half_x+r, half_y-r, 90),
+                              (-half_x+r, -half_y+r, 180),
+                              (half_x-r, -half_y+r, 270)):
+            for step in range(7):
+                a = math.radians(start + 90 * step / 6)
+                points.append((cx + ox + r*math.cos(a),
+                               cy + oy + r*math.sin(a), z))
+        return points
+
+    triangles = []
+    for cx in config['x_centers_m']:
+        for sign in (-1, 1):
+            cy = sign * config['y_abs_m']
+            z0 = config['z_center_m'] - sz / 2
+            z1 = config['z_center_m'] + sz / 2
+            rings = [outline(cx,cy,sx/2-bevel,sy/2-bevel,radius-bevel,z0),
+                     outline(cx,cy,sx/2,sy/2,radius,z0+bevel),
+                     outline(cx,cy,sx/2,sy/2,radius,z1-bevel),
+                     outline(cx,cy,sx/2-bevel,sy/2-bevel,radius-bevel,z1)]
+            count = len(rings[0])
+            bottom = (cx, cy, z0)
+            top = (cx, cy, z1)
+            for j in range(count):
+                k = (j + 1) % count
+                triangles.append((bottom, rings[0][k], rings[0][j]))
+                triangles.append((top, rings[-1][j], rings[-1][k]))
+                for a, b in zip(rings, rings[1:]):
+                    triangles.append((a[j], a[k], b[k]))
+                    triangles.append((a[j], b[k], b[j]))
+    with path.open('wb') as out:
+        out.write(b'photo-based rounded upper corner protectors'.ljust(80,b' '))
+        out.write(struct.pack('<I', len(triangles)))
+        for a,b,c in triangles:
+            u=[b[i]-a[i] for i in range(3)]
+            v=[c[i]-a[i] for i in range(3)]
+            normal=[u[1]*v[2]-u[2]*v[1], u[2]*v[0]-u[0]*v[2],
+                    u[0]*v[1]-u[1]*v[0]]
+            length=math.sqrt(sum(q*q for q in normal))
+            if length <= 1e-15:
+                raise ValueError('Degenerate corner protector mesh')
+            out.write(struct.pack('<12fH', *(q/length for q in normal), *a, *b, *c, 0))
+
+
 def generate():
     p=json.loads((ROOT/'config/parameters.json').read_text())
     g=json.loads((ROOT/'config/geometry.json').read_text())
     palette=p['visual_palette']
-    for name in ('metal','yellow','black','blue','green','glass','rubber','imu'):
+    for name in ('metal','yellow','black','blue','green','glass','rubber','imu',
+                 'imu_blue','imu_white','imu_black','imu_gold','imu_red','imu_green','imu_yellow'):
         rgba=palette[name]
         if len(rgba)!=4 or any(not math.isfinite(v) or v<0 or v>1 for v in rgba):
             raise ValueError(f'Invalid visual color: {name}')
+    write_corner_cap_mesh(p['upper_corner_caps'], ROOT/'models/robot/meshes/body_corner_caps.stl')
     if p['visual_mode'] not in ('cad','simplified'):
         raise ValueError('visual_mode must be cad or simplified')
     scalar_values=[p['body_mass_kg'],p['track_mass_kg_each'],p['steering_efficiency'],p['command_timeout_s'],p['max_linear_speed_m_s'],p['max_angular_speed_rad_s'],p['max_track_speed_m_s'],p['max_linear_acceleration_m_s2'],p['max_angular_acceleration_rad_s2']]
@@ -149,6 +208,12 @@ def generate():
         raise ValueError('Inertia proxy size must be positive')
     if not all(math.isfinite(v) for v in p['body_com_m']+camera['pose_m_rad']):
         raise ValueError('Centre of mass and camera pose must be finite')
+    under=p['underbody'];lidar=under['lidar']
+    if not 0<lidar['range_min_m']<lidar['range_max_m'] or lidar['samples']<2 or lidar['fps']<=0:
+        raise ValueError('Invalid underbody lidar scan settings')
+    imu=p['imu']
+    if imu['fps']<=0 or not all(math.isfinite(v) for v in imu['pose_m']+imu['rpy_rad']):
+        raise ValueError('Invalid IMU pose or update rate')
     sdf=ET.Element('sdf',version='1.9')
     model=sub(sdf,'model',name='robot',canonical_link='base_link')
     sub(model,'static','false');sub(model,'self_collide','false')
@@ -169,26 +234,91 @@ def generate():
             mesh=sub(sub(visual,'geometry'),'mesh')
             sub(mesh,'uri',f'model://robot/meshes/body_{color}.stl')
             material(visual,palette[color])
-    # The editable camera assembly is exported from camera_mount.blend. Its
+        lidar_mesh=ROOT/'models/robot/meshes/body_lidar.stl'
+        if not lidar_mesh.is_file():
+            raise FileNotFoundError(f'{lidar_mesh}; run python3 tools/colorize_mesh.py')
+        lidar_visual=sub(body,'visual',name='cad_underbody_lidar')
+        sub(lidar_visual,'pose',p['underbody']['lidar']['cad_visual_offset_m']+[0,0,0])
+        mesh=sub(sub(lidar_visual,'geometry'),'mesh')
+        sub(mesh,'uri','model://robot/meshes/body_lidar.stl')
+        material(lidar_visual,palette['black'])
+        for name,shift in (('center_camera',p['underbody']['center_camera_visual_offset_m']),('electronics_black',0)):
+            mesh_file=ROOT/f'models/robot/meshes/body_{name}.stl'
+            if not mesh_file.is_file():
+                raise FileNotFoundError(f'{mesh_file}; run python3 tools/colorize_mesh.py')
+            visual=sub(body,'visual',name='cad_'+name)
+            sub(visual,'pose',[0,0,shift,0,0,0])
+            mesh=sub(sub(visual,'geometry'),'mesh')
+            sub(mesh,'uri',f'model://robot/meshes/body_{name}.stl')
+            material(visual,palette['black'])
+    caps_visual=sub(body,'visual',name='upper_corner_protectors')
+    mesh=sub(sub(caps_visual,'geometry'),'mesh')
+    sub(mesh,'uri','model://robot/meshes/body_corner_caps.stl')
+    material(caps_visual,palette['black'])
+    caps=p['upper_corner_caps']
+    for position,cx in (('rear',caps['x_centers_m'][0]),('front',caps['x_centers_m'][1])):
+        for side,sign in (('right',-1),('left',1)):
+            primitive(body,'collision',f'upper_corner_{position}_{side}_collision',
+                      [cx,sign*caps['y_abs_m'],caps['z_center_m']],size=caps['size_m'])
+    # The editable front assembly is exported from robot_visual_edit.blend. Its
     # mesh coordinates are local to the centre of the yellow plate.
     plate=p['camera_mount_plate_collision']
     primitive(body,'collision','lower_camera_plate',plate['pose_m'],size=plate['size_m'])
-    for color in ('yellow','green','black'):
+    for color in ('yellow','green','black','dark'):
         mesh_file=ROOT/f'models/robot/meshes/camera_mount_{color}.stl'
         if not mesh_file.is_file():
-            raise FileNotFoundError(f'{mesh_file}; export camera_mount.blend first')
+            raise FileNotFoundError(f'{mesh_file}; export robot_visual_edit.blend first')
         visual=sub(body,'visual',name=f'camera_mount_{color}')
         sub(visual,'pose',[.245,0,.607,0,0,0])
         mesh=sub(sub(visual,'geometry'),'mesh')
         sub(mesh,'uri',f'model://robot/meshes/camera_mount_{color}.stl')
-        material(visual,palette[color])
+        material(visual,palette['black' if color=='dark' else color])
     imu=p['imu']
-    imu_visual=sub(body,'visual',name='imu_sensor_visual')
-    sub(imu_visual,'pose',[.245,0,.607,0,0,0])
-    imu_mesh=sub(sub(imu_visual,'geometry'),'mesh')
-    sub(imu_mesh,'uri','model://robot/meshes/camera_mount_imu.stl')
-    material(imu_visual,palette['imu'])
+    for color in ('imu','imu_blue','imu_white','imu_black','imu_gold',
+                  'imu_red','imu_green','imu_yellow'):
+        visual=sub(body,'visual',name='imu_sensor_visual' if color=='imu' else f'imu_sensor_{color}')
+        sub(visual,'pose',[.245,0,.607,0,0,0])
+        mesh=sub(sub(visual,'geometry'),'mesh')
+        sub(mesh,'uri',f'model://robot/meshes/camera_mount_{color}.stl')
+        material(visual,palette[color])
     primitive(body,'collision','imu_sensor_collision',imu['pose_m'],size=imu['size_m'])
+    imu_sensor=sub(body,'sensor',name='front_imu',type='imu')
+    sub(imu_sensor,'pose',imu['pose_m']+imu['rpy_rad'])
+    sub(imu_sensor,'always_on','true');sub(imu_sensor,'update_rate',imu['fps'])
+    sub(imu_sensor,'topic','/robot/imu/data')
+    under=p['underbody']
+    lidar=under['lidar']
+    lower=under['lower_plate']
+    x0,x1=lower['x_range_m'];y0,y1=lower['y_range_m']
+    if not x0<x1 or not y0<y1 or lower['thickness_m']<=0:
+        raise ValueError('Invalid unified lower plate')
+    if (max(abs(a-b) for a,b in zip(
+            [x1-x0,y1-y0,lower['thickness_m']],plate['size_m']))>1e-5
+            or max(abs(a-b) for a,b in zip(
+                [(x0+x1)/2,(y0+y1)/2,lower['z_m']],plate['pose_m']))>1e-5):
+        raise ValueError('Lower plate and Blender source disagree')
+    offset=lidar['cad_visual_offset_m']
+    if len(offset)!=3 or not all(math.isfinite(v) for v in offset):
+        raise ValueError('Invalid CAD lidar offset')
+    side=under['side_cylinders']
+    for label,sign in (('left',1),('right',-1)):
+        sx,sy,sz=side['x_m'],sign*side['y_abs_m'],side['z_m']
+        mount_y=sign*(side['y_abs_m']+side['length_m']/2+.010)
+        primitive(body,'visual',f'underbody_{label}_mount',[sx,mount_y,sz],size=[.075,.008,.075],color=palette['metal'])
+        primitive(body,'visual',f'underbody_{label}_cylinder',[sx,sy,sz],radius=side['radius_m'],length=side['length_m'],rpy=(math.pi/2,0,0),color=palette['black'])
+        primitive(body,'visual',f'underbody_{label}_lens',[sx,sign*(side['y_abs_m']-side['length_m']/2-.002),sz],radius=.021,length=.003,rpy=(math.pi/2,0,0),color=palette['glass'])
+    sensor=sub(body,'sensor',name='underbody_lidar',type='gpu_lidar')
+    sub(sensor,'pose',lidar['pose_m']+[0,0,0]);sub(sensor,'always_on','true');sub(sensor,'update_rate',lidar['fps'])
+    sub(sensor,'topic','/robot/lidar/scan');sub(sensor,'visualize','false')
+    ray=sub(sensor,'ray');scan=sub(ray,'scan')
+    horizontal=sub(scan,'horizontal')
+    sub(horizontal,'samples',lidar['samples']);sub(horizontal,'resolution',1)
+    sub(horizontal,'min_angle',-math.pi);sub(horizontal,'max_angle',math.pi)
+    vertical=sub(scan,'vertical')
+    sub(vertical,'samples',1);sub(vertical,'resolution',1)
+    sub(vertical,'min_angle',0);sub(vertical,'max_angle',0)
+    scan_range=sub(ray,'range')
+    sub(scan_range,'min',lidar['range_min_m']);sub(scan_range,'max',lidar['range_max_m']);sub(scan_range,'resolution',.01)
     track_size=g['track_envelope_size_m']
     axis_distance=g['track_contact_axis_distance_m']
     radius=(track_size[0]-axis_distance)/2
@@ -267,6 +397,7 @@ def generate():
     physics=sub(world,'physics',name='1ms',type='ignored');sub(physics,'max_step_size',.001);sub(physics,'real_time_factor',1)
     for system,filename in [('Physics','physics'),('UserCommands','user-commands'),('SceneBroadcaster','scene-broadcaster')]:plugin(world,system,filename)
     sensors=plugin(world,'Sensors','sensors');sub(sensors,'render_engine','ogre2')
+    plugin(world,'Imu','imu')
     scene=sub(world,'scene');sub(scene,'ambient',[.6,.6,.6,1]);sub(scene,'background',[.85,.9,.95,1]);sub(scene,'shadows','true')
     sun=sub(world,'light',name='sun',type='directional');sub(sun,'pose',[0,0,10,0,0,0])
     sub(sun,'direction',[-.5,.2,-1]);sub(sun,'diffuse',[.9,.9,.9,1]);sub(sun,'specular',[.2,.2,.2,1]);sub(sun,'cast_shadows','true')

@@ -9,15 +9,17 @@ import struct
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'models/robot/meshes/body.stl'
 TRIANGLE = struct.Struct('<12fH')
-SIDE_CAMERA_PARTS = {21, 22, 23, 24, 27}
-REMOVED_EQUIPMENT_PARTS = SIDE_CAMERA_PARTS
+REMOVED_EQUIPMENT_PARTS = {21, 22, 23, 24}  # The side cameras are absent on the real robot.
 
 
 PHOTO_PARTS = {
     'glass': {17, 18, 19, 20},
     'blue': {16},
     'green': {12},
-    'black': {9, 10, 11, 13, 14, 15, 22, 24, 27},
+    'black': {10, 11, 13, 22, 24},
+    'center_camera': {27},
+    'electronics_black': {14, 15},
+    'lidar': {9},
 }
 
 
@@ -43,7 +45,9 @@ def obsolete_top_part(box):
 
 
 def unwanted_detail(box, reference):
-    """Hide external cameras, exposed brackets, and the hanging CAD arm."""
+    """Hide absent cameras, unrelated fittings, and the hanging CAD arm."""
+    if contained(box, reference[27]):
+        return False  # All eight shells of the central circular CAD camera.
     if any(contained(box, reference[index]) for index in REMOVED_EQUIPMENT_PARTS):
         return True
     if any(contained(box, reference[index]) for index in range(28, 637)):
@@ -52,8 +56,10 @@ def unwanted_detail(box, reference):
     # Small brackets, pins and connectors above the inner equipment box.
     platform_equipment = any(contained(box, reference[index])
                              for index in (14, 15, 16))
+    cad_lidar = contained(box, reference[9])
     internal_fitting = (x0 > -.15 and x1 < .16 and y0 > -.23 and y1 < .23
-                        and .45 < z0 < .8 and not platform_equipment)
+                        and .45 < z0 < .8 and not platform_equipment and not cad_lidar
+                        and not contained(box, reference[27]))
     if internal_fitting:
         return True
     center_y = (y0 + y1) / 2
@@ -108,6 +114,43 @@ def partition():
     reference = {part['index']: ros_bounds(part) for part in parts}
     remove = {root: obsolete_top_part(box) or unwanted_detail(box, reference)
               for root, box in bounds.items()}
+    camera_roots={root for root,box in bounds.items() if contained(box,reference[13])}
+    if len(camera_roots)!=1:
+        raise ValueError(f'Expected one CAD upper-camera shell, found {len(camera_roots)}')
+    camera_data=bytearray()
+    for index in range(count):
+        if find(index) in camera_roots:
+            camera_data.extend(triangles[index*50:(index+1)*50])
+    camera_file=SOURCE.with_name('cad_upper_camera.stl')
+    camera_file.write_bytes(b'CAD upper camera from STEP'.ljust(80,b' ')+
+                            struct.pack('<I',len(camera_data)//50)+camera_data)
+    print(f'{camera_file.name}: {len(camera_data)//50} triangles')
+
+    # The front and rear horizontal bars belong to the large chassis shell.
+    # Raise their lower rail 18 mm so it meets the diagonal braces higher.
+    frame_roots = {root for root, box in bounds.items()
+                   if box[0] < -.16 and box[3] > .20 and box[1] < -.29
+                   and box[4] > .29 and box[2] < .08 and box[5] > .8}
+    if len(frame_roots) != 1:
+        raise ValueError(f'Expected one main CAD chassis shell, found {len(frame_roots)}')
+
+    def raised_frame_triangle(raw):
+        values = list(TRIANGLE.unpack(raw))
+        changed = False
+        for offset in (3, 6, 9):
+            if .560 <= values[offset + 2] <= .565:
+                values[offset + 2] += .018
+                changed = True
+        if changed:
+            a, b, c = (values[3:6], values[6:9], values[9:12])
+            u = [b[i] - a[i] for i in range(3)]
+            v = [c[i] - a[i] for i in range(3)]
+            n = [u[1]*v[2]-u[2]*v[1], u[2]*v[0]-u[0]*v[2], u[0]*v[1]-u[1]*v[0]]
+            length = sum(x*x for x in n) ** .5
+            if length:
+                values[:3] = [x/length for x in n]
+        return TRIANGLE.pack(*values)
+
     material = {}
     for root, box in bounds.items():
         category = 'metal'
@@ -122,7 +165,8 @@ def partition():
         material[root] = category
 
     groups = {category: bytearray() for category in
-              ('metal', 'yellow', 'black', 'blue', 'green', 'glass')}
+              ('metal', 'yellow', 'black', 'blue', 'green', 'glass', 'lidar',
+               'center_camera', 'electronics_black')}
     removed = 0
     for index in range(count):
         root = find(index)
@@ -138,7 +182,8 @@ def partition():
                 z = (values[5], values[8], values[11])
                 if all(.609 <= value <= .616 for value in z):
                     category = 'yellow'
-        groups[category].extend(triangles[index * 50:(index + 1) * 50])
+        raw = triangles[index * 50:(index + 1) * 50]
+        groups[category].extend(raised_frame_triangle(raw) if root in frame_roots else raw)
 
     for category, data in groups.items():
         output = SOURCE.with_name(f'body_{category}.stl')

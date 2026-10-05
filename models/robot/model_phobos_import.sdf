@@ -100,11 +100,94 @@
         </material>
         <transparency>0.75</transparency>
       </visual>
-      <collision name="lower_camera_plate">
-        <pose>0.2500000075 0 0.6069999337 0 0 0</pose>
+      <visual name="cad_underbody_lidar">
+        <pose>-0.24 0 0.005431138 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>meshes/body_lidar.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.07 0.08 0.09 1</ambient>
+          <diffuse>0.07 0.08 0.09 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="cad_center_camera">
+        <pose>0 0 -0.044568874 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>meshes/body_center_camera.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.07 0.08 0.09 1</ambient>
+          <diffuse>0.07 0.08 0.09 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="cad_electronics_black">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>meshes/body_electronics_black.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.07 0.08 0.09 1</ambient>
+          <diffuse>0.07 0.08 0.09 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="upper_corner_protectors">
+        <geometry>
+          <mesh>
+            <uri>meshes/body_corner_caps.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.07 0.08 0.09 1</ambient>
+          <diffuse>0.07 0.08 0.09 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <collision name="upper_corner_rear_right_collision">
+        <pose>-0.138 -0.27 0.815 0 0 0</pose>
         <geometry>
           <box>
-            <size>0.1899999976 0.2800000012 0.005999999586</size>
+            <size>0.052 0.052 0.02</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name="upper_corner_rear_left_collision">
+        <pose>-0.138 0.27 0.815 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.052 0.052 0.02</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name="upper_corner_front_right_collision">
+        <pose>0.176 -0.27 0.815 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.052 0.052 0.02</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name="upper_corner_front_left_collision">
+        <pose>0.176 0.27 0.815 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.052 0.052 0.02</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name="lower_camera_plate">
+        <pose>0.07749998569 0 0.5699999928 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.5349999666 0.3700000048 0.006000041962</size>
           </box>
         </geometry>
       </collision>
@@ -147,6 +230,19 @@
           <specular>0.3 0.3 0.3 1</specular>
         </material>
       </visual>
+      <visual name="camera_mount_dark">
+        <pose>0.245 0 0.607 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>meshes/camera_mount_dark.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.07 0.08 0.09 1</ambient>
+          <diffuse>0.07 0.08 0.09 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
       <visual name="imu_sensor_visual">
         <pose>0.245 0 0.607 0 0 0</pose>
         <geometry>
@@ -155,21 +251,228 @@
           </mesh>
         </geometry>
         <material>
-          <ambient>0.16 0.19 0.22 1</ambient>
-          <diffuse>0.16 0.19 0.22 1</diffuse>
+          <ambient>0.72 0.75 0.78 1</ambient>
+          <diffuse>0.72 0.75 0.78 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="imu_sensor_imu_blue">
+        <pose>0.245 0 0.607 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>meshes/camera_mount_imu_blue.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.02 0.34 0.68 1</ambient>
+          <diffuse>0.02 0.34 0.68 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="imu_sensor_imu_white">
+        <pose>0.245 0 0.607 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>meshes/camera_mount_imu_white.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.94 0.96 0.98 1</ambient>
+          <diffuse>0.94 0.96 0.98 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="imu_sensor_imu_black">
+        <pose>0.245 0 0.607 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>meshes/camera_mount_imu_black.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.03 0.04 0.05 1</ambient>
+          <diffuse>0.03 0.04 0.05 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="imu_sensor_imu_gold">
+        <pose>0.245 0 0.607 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>meshes/camera_mount_imu_gold.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.88 0.62 0.12 1</ambient>
+          <diffuse>0.88 0.62 0.12 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="imu_sensor_imu_red">
+        <pose>0.245 0 0.607 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>meshes/camera_mount_imu_red.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.9 0.1 0.05 1</ambient>
+          <diffuse>0.9 0.1 0.05 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="imu_sensor_imu_green">
+        <pose>0.245 0 0.607 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>meshes/camera_mount_imu_green.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.22 0.72 0.1 1</ambient>
+          <diffuse>0.22 0.72 0.1 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="imu_sensor_imu_yellow">
+        <pose>0.245 0 0.607 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>meshes/camera_mount_imu_yellow.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.9 0.8 0.07 1</ambient>
+          <diffuse>0.9 0.8 0.07 1</diffuse>
           <specular>0.3 0.3 0.3 1</specular>
         </material>
       </visual>
       <collision name="imu_sensor_collision">
-        <pose>0.3150000051 0 0.6179999937 0 0 0</pose>
+        <pose>0.32099998 0 0.5809999704 0 0 0</pose>
         <geometry>
           <box>
-            <size>0.06000000238 0.04800000042 0.01600000169</size>
+            <size>0.04800003767 0.06000000983 0.01600003242</size>
           </box>
         </geometry>
       </collision>
+      <sensor name="front_imu" type="imu">
+        <pose relative_to="base_link">0.32099998 0 0.5809999704 0 -0 1.570796132</pose>
+        <always_on>true</always_on>
+        <update_rate>100</update_rate>
+        <topic>/robot/imu/data</topic>
+      </sensor>
+      <visual name="underbody_left_mount">
+        <pose>0 0.255 0.536431138 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.075 0.008 0.075</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.68 0.71 0.73 1</ambient>
+          <diffuse>0.68 0.71 0.73 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="underbody_left_cylinder">
+        <pose>0 0.22 0.536431138 1.570796327 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.027</radius>
+            <length>0.05</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.07 0.08 0.09 1</ambient>
+          <diffuse>0.07 0.08 0.09 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="underbody_left_lens">
+        <pose>0 0.193 0.536431138 1.570796327 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.021</radius>
+            <length>0.003</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.76 0.86 0.9 0.25</ambient>
+          <diffuse>0.76 0.86 0.9 0.25</diffuse>
+        </material>
+        <transparency>0.75</transparency>
+      </visual>
+      <visual name="underbody_right_mount">
+        <pose>0 -0.255 0.536431138 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.075 0.008 0.075</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.68 0.71 0.73 1</ambient>
+          <diffuse>0.68 0.71 0.73 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="underbody_right_cylinder">
+        <pose>0 -0.22 0.536431138 1.570796327 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.027</radius>
+            <length>0.05</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.07 0.08 0.09 1</ambient>
+          <diffuse>0.07 0.08 0.09 1</diffuse>
+          <specular>0.3 0.3 0.3 1</specular>
+        </material>
+      </visual>
+      <visual name="underbody_right_lens">
+        <pose>0 -0.193 0.536431138 1.570796327 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.021</radius>
+            <length>0.003</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.76 0.86 0.9 0.25</ambient>
+          <diffuse>0.76 0.86 0.9 0.25</diffuse>
+        </material>
+        <transparency>0.75</transparency>
+      </visual>
+      <sensor name="underbody_lidar" type="gpu_lidar">
+        <pose relative_to="base_link">-0.1194 -0.0065 0.536431138 0 0 0</pose>
+        <always_on>true</always_on>
+        <update_rate>10</update_rate>
+        <topic>/robot/lidar/scan</topic>
+        <visualize>false</visualize>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>720</samples>
+              <resolution>1</resolution>
+              <min_angle>-3.141592653589793</min_angle>
+              <max_angle>3.141592653589793</max_angle>
+            </horizontal>
+            <vertical>
+              <samples>1</samples>
+              <resolution>1</resolution>
+              <min_angle>0</min_angle>
+              <max_angle>0</max_angle>
+            </vertical>
+          </scan>
+          <range>
+            <min>0.15</min>
+            <max>12.0</max>
+            <resolution>0.01</resolution>
+          </range>
+        </ray>
+      </sensor>
       <sensor name="down_camera" type="camera">
-        <pose relative_to="base_link">0.2759639672 0.1606882811 0.5922218414 0 1.570796327 0</pose>
+        <pose relative_to="base_link">0.2760000229 0.237699993 0.5502320995 0 1.570796327 0</pose>
         <always_on>true</always_on>
         <update_rate>20</update_rate>
         <topic>/robot/camera/image</topic>

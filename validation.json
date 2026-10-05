@@ -8,18 +8,40 @@
   ],
   "mesh_triangles": {
     "body.stl": 423579,
-    "body_black.stl": 17126,
+    "body_black.stl": 13578,
     "body_blue.stl": 1012,
+    "body_center_camera.stl": 1448,
+    "body_corner_caps.stl": 896,
+    "body_electronics_black.stl": 3548,
     "body_glass.stl": 80,
+    "body_lidar.stl": 900,
     "body_metal.stl": 144854,
     "body_yellow.stl": 744,
-    "camera_mount_black.stl": 528,
-    "camera_mount_green.stl": 168,
+    "cad_upper_camera.stl": 1668,
+    "camera_mount_black.stl": 1668,
+    "camera_mount_dark.stl": 556,
+    "camera_mount_green.stl": 2104,
     "camera_mount_imu.stl": 108,
+    "camera_mount_imu_black.stl": 432,
+    "camera_mount_imu_blue.stl": 188,
+    "camera_mount_imu_gold.stl": 184,
+    "camera_mount_imu_green.stl": 188,
+    "camera_mount_imu_red.stl": 188,
+    "camera_mount_imu_white.stl": 244,
+    "camera_mount_imu_yellow.stl": 188,
     "camera_mount_yellow.stl": 12,
     "left_track.stl": 36800,
     "right_track.stl": 36790
   },
-  "gazebo_runtime_motion_and_camera": "not covered by asset validation; run check_motion.sh with start_sim.sh",
+  "imu_hz": 100,
+  "lidar_scan": {
+    "samples": 720,
+    "fps": 10,
+    "range_m": [
+      0.15,
+      12.0
+    ]
+  },
+  "gazebo_runtime_motion_camera_lidar_and_imu": "not covered by asset validation; run check_motion.sh with start_sim.sh",
   "runtime_check_command": "bash check_motion.sh (after bash start_sim.sh)"
 }

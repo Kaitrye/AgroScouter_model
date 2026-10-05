@@ -44,9 +44,51 @@
       1.0
     ],
     "imu": [
-      0.16,
-      0.19,
+      0.72,
+      0.75,
+      0.78,
+      1.0
+    ],
+    "imu_blue": [
+      0.02,
+      0.34,
+      0.68,
+      1.0
+    ],
+    "imu_white": [
+      0.94,
+      0.96,
+      0.98,
+      1.0
+    ],
+    "imu_black": [
+      0.03,
+      0.04,
+      0.05,
+      1.0
+    ],
+    "imu_gold": [
+      0.88,
+      0.62,
+      0.12,
+      1.0
+    ],
+    "imu_red": [
+      0.9,
+      0.1,
+      0.05,
+      1.0
+    ],
+    "imu_green": [
       0.22,
+      0.72,
+      0.1,
+      1.0
+    ],
+    "imu_yellow": [
+      0.9,
+      0.8,
+      0.07,
       1.0
     ]
   },
@@ -113,9 +155,9 @@
   "command_timeout_s": 0.5,
   "camera": {
     "pose_m_rad": [
-      0.27596396720036864,
-      0.16068828105926514,
-      0.5922218413800001,
+      0.2760000228881836,
+      0.237699992954731,
+      0.550232099533081,
       0,
       1.5707963267948966,
       0
@@ -133,32 +175,93 @@
     "inertia": "Homogeneous box proxy around the provisional centre of mass.",
     "track_friction": "Provisional coefficients; calibrate on real floor.",
     "drive": "Velocity-controlled non-deformable tracks; no motor torque or grouser simulation.",
-    "camera": "Approximate pose of the smaller downward-facing camera on a compact green fork extending left from the front yellow plate, based on photos. Intrinsics/FOV uncalibrated.",
-    "manipulator": "The side equipment, manipulator and small internal fittings are omitted from the visual mesh; mass and inertia remain provisional.",
-    "detail": "CAD visuals omit very small internal electronic components; original STEP remains authoritative."
+    "camera": "The downward-looking virtual camera uses an exact rotated copy of STEP upper-camera component 13 on a photo-detailed green fork mounted to the lower yellow plate. It hangs beyond the plate side edge, with the optical pose estimated 1 mm below its lower face; intrinsics/FOV are uncalibrated.",
+    "manipulator": "The central large camera (STEP component 27) is preserved as visual geometry and lowered 45 mm to the underside of the lower plate. The soil sensor, arm parts, side cameras and very small internal fittings stay hidden; mass and inertia remain provisional.",
+    "detail": "CAD visuals omit very small internal electronic components; original STEP remains authoritative.",
+    "underbody": "The lower photo-based yellow plate is 370 mm wide and sits about 7 mm below the raised CAD crossbar without intersecting diagonal braces. It protrudes forward and supports the IMU and green camera fork. The separate upper CAD yellow platform with its battery and controllers remains at its original height. The STEP lidar remains under the rear crossbar; side cylinders are approximate visual details.",
+    "upper_corner_caps": "Four approximate black soft rectangular corner protectors on the top steel frame, modeled from the supplied robot photos; dimensions and material stiffness are not measured."
   },
   "imu": {
     "pose_m": [
-      0.3150000050663948,
+      0.32099997997283936,
       0.0,
-      0.6179999937303364
+      0.5809999704360962
     ],
     "size_m": [
-      0.06000000238418579,
-      0.04800000041723251,
-      0.016000001691281796
-    ]
+      0.0480000376701355,
+      0.06000000983476639,
+      0.016000032424926758
+    ],
+    "rpy_rad": [
+      0.0,
+      -0.0,
+      1.5707961320877075
+    ],
+    "fps": 100
   },
   "camera_mount_plate_collision": {
     "pose_m": [
-      0.2500000074505806,
+      0.07749998569488525,
       0.0,
-      0.606999933719635
+      0.5699999928474426
     ],
     "size_m": [
-      0.1899999976158142,
-      0.2800000011920929,
-      0.005999999586492777
+      0.5349999666213989,
+      0.3700000047683716,
+      0.006000041961669922
     ]
+  },
+  "underbody": {
+    "lidar": {
+      "pose_m": [
+        -0.1194,
+        -0.0065,
+        0.536431138
+      ],
+      "samples": 720,
+      "fps": 10,
+      "range_min_m": 0.15,
+      "range_max_m": 12.0,
+      "cad_visual_offset_m": [
+        -0.24,
+        0,
+        0.005431138
+      ]
+    },
+    "side_cylinders": {
+      "x_m": 0.0,
+      "y_abs_m": 0.22,
+      "z_m": 0.536431138,
+      "radius_m": 0.027,
+      "length_m": 0.05
+    },
+    "lower_plate": {
+      "x_range_m": [
+        -0.1899999976158142,
+        0.3449999690055847
+      ],
+      "y_range_m": [
+        -0.1850000023841858,
+        0.1850000023841858
+      ],
+      "z_m": 0.5699999928474426,
+      "thickness_m": 0.006000041961669922
+    },
+    "center_camera_visual_offset_m": -0.044568874
+  },
+  "upper_corner_caps": {
+    "x_centers_m": [
+      -0.138,
+      0.176
+    ],
+    "y_abs_m": 0.27,
+    "z_center_m": 0.815,
+    "size_m": [
+      0.052,
+      0.052,
+      0.02
+    ],
+    "corner_radius_m": 0.006,
+    "edge_bevel_m": 0.003
   }
 }
