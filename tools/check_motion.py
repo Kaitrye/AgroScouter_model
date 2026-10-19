@@ -4,7 +4,7 @@ import math
 import time
 import rclpy
 from rclpy.node import Node
-from geometry_msgs.msg import Twist
+from std_msgs.msg import Int32MultiArray, UInt32MultiArray
 from nav_msgs.msg import Odometry
 from sensor_msgs.msg import Image, LaserScan, Imu
 from rclpy.qos import qos_profile_sensor_data
@@ -17,13 +17,14 @@ def yaw(q):
 class MotionCheck(Node):
     def __init__(self):
         super().__init__('robot_sim_motion_check')
-        self.publisher=self.create_publisher(Twist,'/cmd_vel',10)
-        self.latest=None;self.images=0;self.scans=0;self.imus=0;self.start_time=None;self.forward_end=None;self.turn_start=None;self.turn_end=None
+        self.publisher=self.create_publisher(Int32MultiArray,'/motors',10)
+        self.latest=None;self.images=0;self.scans=0;self.imus=0;self.encoders=0;self.start_time=None;self.forward_end=None;self.turn_start=None;self.turn_end=None
         self.initial=None;self.result=None;self.started_wall=time.monotonic()
         self.create_subscription(Odometry,'/ground_truth/odom',self.receive,10)
         self.create_subscription(Image,'/camera/image_raw',self.image,qos_profile_sensor_data)
         self.create_subscription(LaserScan,'/scan',self.scan,qos_profile_sensor_data)
         self.create_subscription(Imu,'/imu/data',self.imu,qos_profile_sensor_data)
+        self.create_subscription(UInt32MultiArray,'/encoders',self.encoder,10)
         self.create_timer(.05,self.tick)
 
     def receive(self,msg):
@@ -42,13 +43,17 @@ class MotionCheck(Node):
         if msg.header.frame_id=='imu_link' and sum(v*v for v in (q.x,q.y,q.z,q.w))>.5:
             self.imus+=1
 
+    def encoder(self,msg):
+        if len(msg.data)==2:
+            self.encoders+=1
+
     def pose(self):
         p=self.latest.pose.pose
         return (p.position.x,p.position.y,yaw(p.orientation))
 
     def tick(self):
         now=self.get_clock().now().nanoseconds*1e-9
-        cmd=Twist()
+        cmd=Int32MultiArray(data=[0,0])
         if self.latest is None:
             self.publisher.publish(cmd)
             return
@@ -58,12 +63,12 @@ class MotionCheck(Node):
         if elapsed<1:
             pass
         elif elapsed<5:
-            cmd.linear.x=.15
+            cmd.data=[38,38]
         elif elapsed<6:
             self.forward_end=self.pose()
         elif elapsed<10:
             if self.turn_start is None:self.turn_start=self.pose()
-            cmd.angular.z=.3
+            cmd.data=[-30,30]
         elif elapsed<11:
             self.turn_end=self.pose()
         elif elapsed>=13:
@@ -73,8 +78,8 @@ class MotionCheck(Node):
             stopped_drift=math.hypot(end[0]-self.turn_end[0],end[1]-self.turn_end[1])
             stopped_yaw=abs(math.atan2(math.sin(end[2]-self.turn_end[2]),math.cos(end[2]-self.turn_end[2])))
             forward_x=self.forward_end[0]-self.initial[0]
-            self.result=distance>.03 and forward_x>.02 and angle>.05 and stopped_drift<.05 and stopped_yaw<.1 and self.images>0 and self.scans>0 and self.imus>0
-            self.get_logger().info(f'Forward: {distance:.3f} m, dX={forward_x:.3f}; turn: {angle:.3f} rad; stop drift: {stopped_drift:.3f} m / {stopped_yaw:.3f} rad; camera frames: {self.images}; lidar scans: {self.scans}; IMU messages: {self.imus}; PASS={self.result}')
+            self.result=distance>.03 and forward_x>.02 and angle>.05 and stopped_drift<.05 and stopped_yaw<.1 and self.images>0 and self.scans>0 and self.imus>0 and self.encoders>0
+            self.get_logger().info(f'Forward: {distance:.3f} m, dX={forward_x:.3f}; turn: {angle:.3f} rad; stop drift: {stopped_drift:.3f} m / {stopped_yaw:.3f} rad; camera frames: {self.images}; lidar scans: {self.scans}; IMU messages: {self.imus}; encoder messages: {self.encoders}; PASS={self.result}')
         self.publisher.publish(cmd)
 
 
@@ -89,7 +94,7 @@ def main():
     except KeyboardInterrupt:
         node.result=False
     finally:
-        if rclpy.ok():node.publisher.publish(Twist())
+        if rclpy.ok():node.publisher.publish(Int32MultiArray(data=[0,0]))
         passed=node.result is True;node.destroy_node()
         if rclpy.ok():rclpy.shutdown()
     raise SystemExit(0 if passed else 1)

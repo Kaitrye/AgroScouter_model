@@ -1961,9 +1961,11 @@
     <plugin name="gz::sim::systems::TrackedVehicle" filename="gz-sim-tracked-vehicle-system">
       <left_track>
         <link>left_track</link>
+        <velocity_topic>/model/robot/link/left_track/ideal_track_cmd_vel</velocity_topic>
       </left_track>
       <right_track>
         <link>right_track</link>
+        <velocity_topic>/model/robot/link/right_track/ideal_track_cmd_vel</velocity_topic>
       </right_track>
       <tracks_separation>0.810125206877134</tracks_separation>
       <steering_efficiency>0.8</steering_efficiency>
@@ -1985,6 +1987,10 @@
         <min_acceleration>-0.8</min_acceleration>
         <max_acceleration>0.8</max_acceleration>
       </angular_velocity>
+    </plugin>
+    <plugin name="robot_sim::TrackMotorBias" filename="robot_track_motor_bias.so">
+      <left_speed_scale>1.0</left_speed_scale>
+      <right_speed_scale>0.975</right_speed_scale>
     </plugin>
     <plugin name="robot_sim::TrackAnimation" filename="robot_track_animation.so">
       <tread_count>48</tread_count>

@@ -147,9 +147,15 @@
     0.7
   ],
   "steering_efficiency": 0.8,
+  "track_motor_speed_scale": {
+    "left": 1.0,
+    "right": 0.975
+  },
   "max_linear_speed_m_s": 0.4,
   "max_angular_speed_rad_s": 0.6,
   "max_track_speed_m_s": 0.8,
+  "motor_command_speed_m_s": 0.4,
+  "encoder_ticks_per_meter": 1000.0,
   "max_linear_acceleration_m_s2": 0.4,
   "max_angular_acceleration_rad_s2": 0.8,
   "command_timeout_s": 0.5,

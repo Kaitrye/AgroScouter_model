@@ -70,6 +70,16 @@ def main():
     for joint in model.findall('joint'):
         assert joint.findtext('parent') in links and joint.findtext('child') in links
         assert joint.attrib['type']=='fixed'
+    params=json.loads((ROOT/'config/parameters.json').read_text())
+    motor=model.find("./plugin[@name='robot_sim::TrackMotorBias']")
+    vehicle=model.find("./plugin[@name='gz::sim::systems::TrackedVehicle']")
+    assert motor is not None and vehicle is not None
+    for side in ('left','right'):
+        scale=float(motor.findtext(f'{side}_speed_scale'))
+        assert math.isfinite(scale) and scale>0
+        assert scale==params['track_motor_speed_scale'][side]
+        expected=f'/model/robot/link/{side}_track/ideal_track_cmd_vel'
+        assert vehicle.findtext(f'{side}_track/velocity_topic')==expected
     for mesh in model.findall('.//mesh'):
         uri=mesh.findtext('uri');assert uri.startswith('model://robot/')
         path=ROOT/'models/robot'/uri.removeprefix('model://robot/')
@@ -183,10 +193,19 @@ def main():
     assert model.find(".//visual[@name='cad_body_yellow']") is not None
     center=numbers(plate_collision.findtext('pose'))[:3]
     half=[v/2 for v in numbers(plate_collision.findtext('geometry/box/size'))]
+    assert not model.findall(".//visual[@name='right_side_gap_cover']")
+    assert not model.findall(".//visual[@name='left_side_gap_cover']")
     metal=(ROOT/'models/robot/meshes/body_metal.stl').read_bytes()
     plate_frame_intersections=0
+    raised_side_edges={'right':[], 'left':[]}
     for row in struct.iter_unpack('<12fH',metal[84:]):
         points=[row[3:6],row[6:9],row[9:12]]
+        for x,y,z in points:
+            if -.117<x<.153 and .578<z<.582:
+                if -.289<y<-.285:
+                    raised_side_edges['right'].append(x)
+                elif .268<y<.272:
+                    raised_side_edges['left'].append(x)
         lo=[min(q[i] for q in points) for i in range(3)]
         hi=[max(q[i] for q in points) for i in range(3)]
         if any(lo[i]>center[i]+half[i] or hi[i]<center[i]-half[i] for i in range(3)):
@@ -194,6 +213,8 @@ def main():
         if triangle_intersects_box(points,center,half):
             plate_frame_intersections+=1
     assert plate_frame_intersections==0,('yellow plate intersects metal frame',plate_frame_intersections)
+    for side, edge in raised_side_edges.items():
+        assert len(edge)>20 and min(edge)<-.115 and max(edge)>.151, (side,'side shell still has a slot')
     imu_collision=model.find(".//collision[@name='imu_sensor_collision']")
     assert imu_collision is not None
     assert max(abs(a-b) for a,b in zip(numbers(imu_collision.findtext('pose'))[:3],imu['pose_m']))<1e-5
@@ -281,6 +302,21 @@ def main():
 
     bridge=(ROOT/'config/lidar_bridge.yaml').read_text()
     assert '/scan' in bridge and '/robot/lidar/scan' in bridge and 'sensor_msgs/msg/LaserScan' in bridge
+    floor=world.find("./model[@name='ground']/link[@name='ground_link']")
+    assert floor is not None
+    for name, expected_y in (('left_lane_line',.75),('right_lane_line',-.75)):
+        marking=floor.find(f"./visual[@name='{name}']")
+        assert marking is not None and abs(numbers(marking.findtext('pose'))[1]-expected_y)<1e-9
+        assert numbers(marking.findtext('geometry/box/size'))[0]>=18
+    dashes=[v for v in floor.findall('visual') if v.get('name','').startswith('center_dash_')]
+    assert len(dashes)>=15
+    walls={wall.get('name'):wall for wall in world.findall('model')}
+    left=numbers(walls['left_wall'].findtext('pose'))
+    right=numbers(walls['right_wall'].findtext('pose'))
+    thickness=numbers(walls['left_wall'].findtext('link/collision/geometry/box/size'))[1]
+    clear_width=left[1]-right[1]-thickness
+    assert 2.4<clear_width<2.9
+    assert walls['end_wall'] is not None and walls['start_wall'] is not None
     include=world.find('include');assert include.findtext('uri')=='model://robot'
     assert numbers(include.findtext('pose'))[2]>0
     total_com=[v/mass for v in weighted_center]

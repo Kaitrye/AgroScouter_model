@@ -10,6 +10,7 @@ from launch_ros.actions import Node
 def generate_launch_description():
     root = Path(__file__).resolve().parents[1]
     params = json.loads((root / 'config/parameters.json').read_text())
+    geometry = json.loads((root / 'config/geometry.json').read_text())
     camera = params['camera']
     pose = camera['pose_m_rad']
     return LaunchDescription([
@@ -41,8 +42,13 @@ def generate_launch_description():
                         '--y', str(params['underbody']['lidar']['pose_m'][1]),
                         '--z', str(params['underbody']['lidar']['pose_m'][2]),
                         '--frame-id', 'base_link', '--child-frame-id', 'lidar_link']),
-        ExecuteProcess(cmd=['python3', str(root / 'tools/command_relay.py'), '--ros-args',
-                            '-p', 'use_sim_time:=true', '-p', f"timeout:={params['command_timeout_s']}"], output='screen'),
+        ExecuteProcess(cmd=['python3', str(root / 'tools/motor_interface.py'), '--ros-args',
+                            '-p', 'use_sim_time:=true',
+                            '-p', f"max_motor_speed_m_s:={params['motor_command_speed_m_s']}",
+                            '-p', f"tracks_separation_m:={geometry['tracks_separation_m']}",
+                            '-p', f"ticks_per_meter:={params['encoder_ticks_per_meter']}",
+                            '-p', f"command_timeout_s:={params['command_timeout_s']}",
+                            '-p', f"track_speed_timeout_s:={params['command_timeout_s'] + 0.3}"], output='screen'),
         Node(package='tf2_ros', executable='static_transform_publisher', name='camera_mount_tf',
              arguments=['--x', str(pose[0]), '--y', str(pose[1]), '--z', str(pose[2]),
                         '--roll', str(pose[3]), '--pitch', str(pose[4]), '--yaw', str(pose[5]),

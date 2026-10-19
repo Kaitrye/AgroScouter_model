@@ -360,7 +360,10 @@ def generate():
         sub(track,'min_velocity',-p['max_track_speed_m_s']);sub(track,'max_velocity',p['max_track_speed_m_s'])
         sub(track,'max_command_age',p['command_timeout_s']+.3)
     vehicle=plugin(model,'TrackedVehicle','tracked-vehicle')
-    sub(sub(vehicle,'left_track'),'link','left_track');sub(sub(vehicle,'right_track'),'link','right_track')
+    for side in ('left','right'):
+        track_config=sub(vehicle,f'{side}_track')
+        sub(track_config,'link',f'{side}_track')
+        sub(track_config,'velocity_topic',f'/model/robot/link/{side}_track/ideal_track_cmd_vel')
     sub(vehicle,'tracks_separation',g['tracks_separation_m'])
     sub(vehicle,'steering_efficiency',p['steering_efficiency'])
     sub(vehicle,'topic','/model/robot/cmd_vel');sub(vehicle,'odom_topic','/model/robot/odometry')
@@ -369,6 +372,9 @@ def generate():
     for tag,speed,acc in [('linear_velocity',p['max_linear_speed_m_s'],p['max_linear_acceleration_m_s2']),('angular_velocity',p['max_angular_speed_rad_s'],p['max_angular_acceleration_rad_s2'])]:
         limiter=sub(vehicle,tag)
         for k,value in [('min_velocity',-speed),('max_velocity',speed),('min_acceleration',-acc),('max_acceleration',acc)]:sub(limiter,k,value)
+    motor_bias=sub(model,'plugin',name='robot_sim::TrackMotorBias',filename='robot_track_motor_bias.so')
+    for side in ('left','right'):
+        sub(motor_bias,f'{side}_speed_scale',p['track_motor_speed_scale'][side])
     animation=sub(model,'plugin',name='robot_sim::TrackAnimation',filename='robot_track_animation.so')
     sub(animation,'tread_count',tread_count)
     sub(animation,'track_height',track_size[2])
@@ -401,18 +407,34 @@ def generate():
     scene=sub(world,'scene');sub(scene,'ambient',[.6,.6,.6,1]);sub(scene,'background',[.85,.9,.95,1]);sub(scene,'shadows','true')
     sun=sub(world,'light',name='sun',type='directional');sub(sun,'pose',[0,0,10,0,0,0])
     sub(sun,'direction',[-.5,.2,-1]);sub(sun,'diffuse',[.9,.9,.9,1]);sub(sun,'specular',[.2,.2,.2,1]);sub(sun,'cast_shadows','true')
-    ground=sub(world,'model',name='ground');sub(ground,'static','true');l=sub(ground,'link',name='ground_link')
-    primitive(l,'collision','ground',[0,0,-.025],size=[30,30,.05],mu=[1,1])
-    primitive(l,'visual','ground',[0,0,-.025],size=[30,30,.05],color=[.68,.7,.72,1])
-    for name,pose,size,color in [
-        ('wall_a',[4,0,1],[.1,8,2],[.8,.75,.65,1]),
-        ('wall_b',[0,4,1],[8,.1,2],[.65,.75,.8,1]),
-        ('obstacle',[2,1,.2],[.5,.5,.4],[.75,.3,.2,1]),
-        ('low_step',[1.8,-1,.03],[.6,.7,.06],[.4,.45,.5,1]),
+    # The robot is just under 1 m wide. Keep a clear 2.68 m between the walls.
+    corridor_center_x=8.0
+    corridor_length=20.0
+    ground=sub(world,'model',name='ground');sub(ground,'static','true')
+    floor=sub(ground,'link',name='ground_link')
+    primitive(floor,'collision','ground',[corridor_center_x,0,-.025],
+              size=[corridor_length,3,.05],mu=[1,1])
+    primitive(floor,'visual','ground',[corridor_center_x,0,-.025],
+              size=[corridor_length,3,.05],color=[.35,.38,.41,1])
+    # Painted lane boundaries and a dashed straight reference have no collisions.
+    for side in ('left','right'):
+        y=.75 if side=='left' else -.75
+        primitive(floor,'visual',f'{side}_lane_line',[corridor_center_x,y,.004],
+                  size=[19,.055,.008],color=[.97,.95,.75,1])
+    for index in range(19):
+        primitive(floor,'visual',f'center_dash_{index}',[-.5+index,0,.004],
+                  size=[.35,.035,.008],color=[.16,.81,.92,1])
+    wall_color=[.67,.71,.74,1]
+    for name,pose,size in [
+        ('left_wall',[corridor_center_x,1.4,.65],[corridor_length,.12,1.3]),
+        ('right_wall',[corridor_center_x,-1.4,.65],[corridor_length,.12,1.3]),
+        ('start_wall',[-2,0,.65],[.12,2.92,1.3]),
+        ('end_wall',[18,0,.65],[.12,2.92,1.3]),
     ]:
-        obstacle=sub(world,'model',name=name);sub(obstacle,'static','true');sub(obstacle,'pose',pose+[0,0,0])
-        l=sub(obstacle,'link',name='link');primitive(l,'collision','collision',[0,0,0],size=size)
-        primitive(l,'visual','visual',[0,0,0],size=size,color=color)
+        wall=sub(world,'model',name=name);sub(wall,'static','true');sub(wall,'pose',pose+[0,0,0])
+        link=sub(wall,'link',name='link')
+        primitive(link,'collision','collision',[0,0,0],size=size)
+        primitive(link,'visual','visual',[0,0,0],size=size,color=wall_color)
     include=sub(world,'include');sub(include,'uri','model://robot');sub(include,'name','robot')
     sub(include,'pose',[0,0,.01,0,0,0])
     write_xml(world_sdf,ROOT/'worlds/test_world.sdf')

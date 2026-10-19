@@ -10,7 +10,7 @@ import time
 import tty
 
 import rclpy
-from geometry_msgs.msg import Twist
+from std_msgs.msg import Int32MultiArray
 from rclpy.node import Node
 
 
@@ -40,9 +40,9 @@ def main():
 
     rclpy.init()
     node = Node('robot_keyboard_teleop')
-    publisher = node.create_publisher(Twist, '/cmd_vel', 10)
-    speed = 0.15
-    turn = 0.3
+    publisher = node.create_publisher(Int32MultiArray, '/motors', 10)
+    speed = 38
+    turn = 30
     key_timeout = 1.0
     interval = 0.1
     old_settings = termios.tcgetattr(sys.stdin)
@@ -65,14 +65,14 @@ def main():
                     last_key = time.monotonic()
             if last_key is None or time.monotonic() - last_key > key_timeout:
                 linear = angular = 0
-            command = Twist()
-            command.linear.x = linear * speed
-            command.angular.z = angular * turn
+            command = Int32MultiArray()
+            command.data = [max(-100, min(100, linear * speed - angular * turn)),
+                            max(-100, min(100, linear * speed + angular * turn))]
             publisher.publish(command)
     except KeyboardInterrupt:
         pass
     finally:
-        publisher.publish(Twist())
+        publisher.publish(Int32MultiArray(data=[0, 0]))
         termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
         node.destroy_node()
         rclpy.shutdown()

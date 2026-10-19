@@ -133,8 +133,20 @@ def partition():
                    and box[4] > .29 and box[2] < .08 and box[5] > .8}
     if len(frame_roots) != 1:
         raise ValueError(f'Expected one main CAD chassis shell, found {len(frame_roots)}')
+    # The lower side shells end at the old rail height. Extend their own top
+    # edges to the raised rail, so the chassis mesh has no horizontal slot.
+    side_panel_roots = {root for root, box in bounds.items()
+                        if .25 < box[3]-box[0] < .28
+                        and .002 < box[4]-box[1] < .004
+                        and .445 < box[2] < .45
+                        and .560 < box[5] < .563
+                        and abs((box[1]+box[4])/2) > .25}
+    if len(side_panel_roots) != 2 or not any(bounds[r][4] < 0 for r in side_panel_roots) \
+            or not any(bounds[r][1] > 0 for r in side_panel_roots):
+        raise ValueError('Expected the left and right lower CAD side shells')
+    raised_roots = frame_roots | side_panel_roots
 
-    def raised_frame_triangle(raw):
+    def raised_edge_triangle(raw):
         values = list(TRIANGLE.unpack(raw))
         changed = False
         for offset in (3, 6, 9):
@@ -183,7 +195,7 @@ def partition():
                 if all(.609 <= value <= .616 for value in z):
                     category = 'yellow'
         raw = triangles[index * 50:(index + 1) * 50]
-        groups[category].extend(raised_frame_triangle(raw) if root in frame_roots else raw)
+        groups[category].extend(raised_edge_triangle(raw) if root in raised_roots else raw)
 
     for category, data in groups.items():
         output = SOURCE.with_name(f'body_{category}.stl')

@@ -7,3 +7,8 @@ add_library(robot_track_animation SHARED TrackAnimation.cc)
 target_compile_features(robot_track_animation PRIVATE cxx_std_17)
 target_link_libraries(robot_track_animation PRIVATE gz-sim8::gz-sim8)
 set_target_properties(robot_track_animation PROPERTIES PREFIX "" OUTPUT_NAME "robot_track_animation")
+
+add_library(robot_track_motor_bias SHARED TrackMotorBias.cc)
+target_compile_features(robot_track_motor_bias PRIVATE cxx_std_17)
+target_link_libraries(robot_track_motor_bias PRIVATE gz-sim8::gz-sim8)
+set_target_properties(robot_track_motor_bias PROPERTIES PREFIX "" OUTPUT_NAME "robot_track_motor_bias")
